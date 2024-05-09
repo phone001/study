@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+
+        function add1(num) {
+            return new Promise((res, rej) => {
+                setTimeout(() => {
+                    res(num + 1);
+                }, 1000)
+            })
+        }
+        async function execute1() {
+            // const num = await add(0);
+            // console.log(num);
+            // const num2 = await add(num);
+            // console.log(num2);
+            // const num3 = await add(num2);
+            // console.log(num3);
+            // const num4 = await add(num3);
+            // console.log(num4);
+            // const num5 = await add(num4);
+            // console.log(num5);
+
+            for (let i = 0; i < 5; i++) {
+                console.log(await add(i))
+            }
+        }
+
+        async function main() {
+
+            // const num = await add(0);
+            // console.log(num);
+            // const num2 = await add(num);
+            // console.log(num2);
+            // const num3 = await add(num2);
+            // console.log(num3);
+            // const num4 = await add(num3);
+            // console.log(
+
+        }
+        main();
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
