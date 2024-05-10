@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            border: 2px solid;
+        }
+
+        .container {
+            border: none;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .child-title {
+            width: 20%;
+            height: 50px;
+            border-color: yellow;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .child-content {
+            width: 50%;
+            height: 50px;
+            display: flex;
+            align-items: center;
+        }
+
+        .child-footer {
+            width: 20%;
+            height: 50px;
+            border-color: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="b-box" style="border-color: aqua; height:1000px ;">
+        <div class="container">
+            <div class="child-title ">
+                <span>1</span>
+            </div>
+            <div class="child-content ">
+                <span>할일 </span>
+            </div>
+            <div class="child-footer ">
+                <input type="checkbox">
+            </div>
+        </div>
+        <div class="container">
+            <div class="child-title ">
+                <span>1</span>
+            </div>
+            <div class="child-content">
+                <span>할일 </span>
+            </div>
+            <div class="child-footer ">
+                <input type="checkbox">
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

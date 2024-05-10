@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            background-color: #6FC3DF;
+            width: 100%;
+            height: 60px;
+        }
+
+        .flex-box {
+            width: 200px;
+            height: 200px;
+            border: 1px solid;
+            display: inline-block;
+        }
+
+        .flex-ex {
+            display: flex;
+            /*행과 열의 정렬을 정한다. 요소의 순서를 정한다.*/
+            flex-direction: column;
+            /*
+            기본 시작은 원쪽 정렬이고 좌우 정렬을 정한다.
+            여백을 주고 가운데 정렬도 정한다.
+            */
+            justify-content: start;
+            /*
+            기본 시작은 상ㄷ당 위아래 정렬을 정한다.
+            여백을 주고 가운데 정렬도 정한다.
+            */
+            align-items: none;
+            /*
+            부모의 영역에서 벗어나면 밑으로 정렬된다
+            처음은 nowrap 속성
+            */
+            flex-wrap: nowrap;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 
+        인라인 스타일 
+        요소에는 속성
+        
+        -->
+    <div style="background-color: rgb(148, 83, 8);width: 100%;height: 60px;"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div style="width:500px;">
+        <div>나는 블록</div>
+        <span>나는 인라인</span>
+        <span>두번째 인라인</span>
+    </div>
+    <div style="width:100%;">
+        <div class="flex-box"></div>
+        <div class="flex-box"></div>
+    </div>
+    <div style="display:flex; border:1px solid; height:1000px;width:100%">
+        <!--
+            flex는 자식의 요소를 정렬하는 스타일
+
+            자식이 많으면 정렬하는 과정에서 스타일이 틀어질 수 있다.
+        -->
+        <div class="flex-box"></div>
+
+    </div>
+</body>
+
+</html>

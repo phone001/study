@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .login-box {
+            border: 1px solid;
+            width: 458px;
+            height: 255px;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .login-input {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            margin: 0;
+            padding: 3px 6px;
+            box-sizing: border-box;
+
+        }
+
+        .login-input-box {
+            width: 402px;
+            height: 95px;
+            display: flex;
+            flex-direction: column;
+            margin: auto;
+
+        }
+
+        .login-state-checkbox {
+            width: 402px;
+            height: 60px;
+
+            display: flex;
+            /*좌우 간격벌림*/
+            justify-content: space-between;
+            margin: 10px auto;
+            text-align: center;
+            align-items: center;
+        }
+
+        .login-button {
+            width: 402px;
+            height: 52px;
+            border-radius: 10px;
+            background-color: green;
+            /*margin auto는 블록속성에만 적용*/
+            margin: auto;
+            display: block;
+            font-size: 20px;
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .login-button:hover {
+            background-color: rebeccapurple;
+            position: relative;
+        }
+
+        .temp {
+            width: 100px;
+            height: 100px;
+            background-color: aqua;
+            position: relative;
+        }
+
+        .temp:hover::after {
+            content: "";
+            width: 50px;
+            height: 50px;
+            background-color: blueviolet;
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+
+<body>
+    <h1>로그인</h1>
+    <ul>
+        <li>
+            <label for="">ID</label>
+            <input type="text">
+            <!-- 
+                input의 태그 타입
+                hidden : 사용자에게 보이지 않는데 서버에 값을 넘길 수 있다.
+                search : 검색상자를 넣는다.
+                tel     : 전화번호를 입력하는 필드
+                email   :메일주로를 입력할 수 있는 필드
+                password : 비밀번호를 입력하는 필드
+                datatime : 국제 표준시로 설정된 날짜와 시간 필드
+                date : 사용자 지역을 기준으로 날짜 연, 월, 일
+                month: 사용자 지역을 기준으로 날짜 연, 월 , 주
+                week  사용자 지역을 기준르로 연, 주
+                range : 숫자로된 수치를 조절할 수 있는 슬라이드 막대
+                color : 색상 지정 필드
+                check : 체크박스 필드
+                radio : 1개만 선택 가능한 라디오필드
+                file : 파일을 첨부할 수있는 필드
+                button : 버튼의 형태로 된 필드
+                number : 
+             -->
+        </li>
+        <li>
+            <lebel>비밀번호</lebel>
+            <input type="password">
+        </li>
+        <li>
+            <label>메일</label>
+            <input type="email">
+        </li>
+        <li>
+            <label>전화번호</label>
+            <input type="tel">
+        </li>
+        <li>
+            <label>학생수(최대 10명까지)</label>
+
+            <!-- 
+                vaule : 최초의 값지정
+                min : 감소할 수 있는 최소값
+                max : 증가할 수 있는 최대값
+                step : 증가 감소량
+
+             -->
+            <input type="number" value="1" max="10" step="1">
+        </li>
+        <li>
+            <label>난이도(하,중,상)</label>
+            <input type="range" value="1" min="1" max="3">
+        </li>
+    </ul>
+
+    <!-- 
+        1. 로그인 컨테이너 만들기
+        2. 아이디 비밀번호 입력창 만들기 (div(input,input))
+        3. 로그인 상태 유지 체크박스(div(check check))
+        4. 로그인 버튼
+     -->
+    <div class="login-box">
+        <div id="loginInput" class="login-input-box">
+            <input class="login-input" type="text" placeholder="ID">
+            <input class="login-input" type="password" placeholder="password">
+        </div>
+        <div class="login-state-checkbox">
+            <div>
+                <input type="checkbox">로그인 상태 유지
+            </div>
+            <div>
+                <input type="checkbox">
+            </div>
+        </div>
+        <div>
+            <input class="login-button" type="button" value="로그인">
+        </div>
+        <div></div>
+    </div>
+    <div class="temp">
+    </div>
+</body>
+
+</html>
