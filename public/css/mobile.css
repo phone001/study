@@ -1,0 +1,146 @@
+@media screen and (min-width:772px) {
+    .container>.content-top>div {
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+    }
+
+    .content-top>div>h2 {
+        margin: 15px;
+        font-size: 40px;
+    }
+
+    .content-top>div>span {
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .content-top>div>span:nth-child(1) {
+        color: pink;
+    }
+
+    .content-top>div>span:nth-child(3) {
+        margin: 20px 0;
+    }
+
+
+
+    /* 두번째 컨텐츠 부분 */
+    .content-middle {
+
+        background-color: rgb(230, 230, 255);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 450px;
+    }
+
+    .content-middle>div {
+        padding: 0 20px;
+
+    }
+
+    /* 넓이를 지우면 안됨 */
+    .container input,
+    .container textarea {
+        border: none;
+        border-bottom: 1px solid gray;
+        height: 30px;
+        width: 100%;
+    }
+
+    .container button {
+        background-color: rgb(230, 230, 255);
+        border-bottom: 1px solid;
+        width: 100%;
+        border-radius: 20px;
+        height: 30px;
+        font-size: 14px;
+    }
+
+    .company-info>li {
+        margin: 10px 0;
+    }
+
+    .tal-input input[type="text"] {
+        width: 70px;
+    }
+
+    .tal-input>span:nth-child(2)::before {
+        width: 10px;
+        content: '-';
+        display: inline;
+        color: gray;
+        right: 0;
+    }
+
+    .tal-input>span:nth-child(2)::after {
+        width: 10px;
+        content: '-';
+        display: inline;
+        color: gray;
+        right: 0;
+    }
+
+    .essential-mark::after {
+        content: '*';
+        display: inline;
+        color: red;
+    }
+
+
+    .company-info>li:nth-child(4)>input:nth-child(1) {
+
+        position: relative;
+    }
+
+    .company-info>li:nth-child(4)>input:nth-child(2)::after {
+        content: '-';
+        background-color: black;
+        color: rgb(0, 0, 0);
+
+    }
+
+    /* 세번째 컨텐츠 부분 */
+
+    .content-bottom {
+        background-color: #353074;
+        color: white;
+    }
+
+    .content-bottom>div:nth-child(1) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+    }
+
+    .content-bottom>div:nth-child(1)>h3 {
+        margin: 60px;
+    }
+
+    .content-bottom>div:nth-child(1)>div {
+        width: 640px;
+        height: 432px;
+        background-image: url(../image/image.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+
+    .process-list-block>li {
+        margin: 20px 0;
+    }
+
+    .process-list:nth-child(1)>li {
+        font-size: 16px;
+    }
+
+
+
+
+}
