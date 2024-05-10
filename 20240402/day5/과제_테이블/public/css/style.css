@@ -1,0 +1,56 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+ul,
+li {
+    list-style: none;
+}
+
+.title {
+    width: 800px;
+}
+
+ul {
+    display: flex;
+}
+
+
+
+.container>.title {
+    background-color: blueviolet;
+    color: aqua;
+    text-align: center;
+}
+
+ul>li {
+    border: 1px solid black;
+    /* width: calc(100% / 5);*/
+
+}
+
+.bb {
+    width: 800px;
+}
+
+.a {
+    width: 10%;
+
+}
+
+.b {
+    width: 50%;
+}
+
+.c {
+    width: 15%;
+}
+
+.d {
+    width: 15%;
+}
+
+.e {
+    width: 10%;
+}

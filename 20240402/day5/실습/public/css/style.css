@@ -1,0 +1,43 @@
+.container {
+    width: 600px;
+    height: 600px;
+    border: 1px solid black;
+    box-sizing: border-box;
+}
+
+.content {
+    width: 600px;
+    height: 200px;
+    border: 1px solid black;
+    box-sizing: border-box;
+    display: flex;
+}
+
+
+
+img {
+    margin: 10px 15px 0 10px;
+}
+
+/* h1 {
+    display: inline;
+} */
+.button {
+    margin: 20px 0 0 320px;
+    border: none;
+}
+
+.bb {
+    text-decoration: underline;
+    background-color: white;
+    border: none;
+}
+
+span {
+    word-break: break-all;
+}
+
+.cc {
+    display: flex;
+    justify-content: space-between;
+}

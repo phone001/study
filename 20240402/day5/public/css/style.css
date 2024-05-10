@@ -1,0 +1,61 @@
+/* reset css - 모든 요소의 css를 초기화 시킨다 */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* ,는 여러 요소를 같이  css적용을 한다. */
+ul,
+li {
+    /* ul인 ol사용시 점이나 숫자가 자동으로 붙지 않는다 */
+    list-style: none;
+}
+
+a {
+    /* a태그의 밑줄 제거 */
+    text-decoration: none;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"]+label {
+    display: inline-block;
+    padding: 20px;
+    background-color: rgb(209, 209, 209);
+    color: gray;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+input[type="radio"]:checked+label {
+    background-color: aquamarine;
+    color: black;
+}
+
+.box {
+    width: 500px;
+    position: absolute;
+    overflow: hidden;
+    height: 0;
+    background-color: beige;
+
+}
+
+#tab1:checked~.con1 {
+    height: 500px;
+    transition: 0.8s;
+}
+
+#tab2:checked~.con2 {
+    height: 500px;
+    transition: 0.8s;
+
+}
+
+#tab3:checked~.con3 {
+    height: 500px;
+    transition: 0.8s;
+
+}

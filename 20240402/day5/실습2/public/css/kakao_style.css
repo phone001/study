@@ -1,0 +1,68 @@
+.kakao-popup {
+    height: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px 0 20px;
+}
+
+.kakao-popup>ul {
+    width: 100%;
+    height: 90%;
+}
+
+.kakao_header {
+    text-align: center;
+    margin-bottom: 30px;
+    ;
+}
+
+.kakao_header+li>div {
+    margin-bottom: 20px;
+}
+
+.kakao_login_input_block {
+    padding: 6px;
+}
+
+.kakao_login_input_block>input {
+    width: 100%;
+    height: 30px;
+    border: none;
+    border-bottom: 1px solid gray;
+    font-size: 100%;
+}
+
+.kakao_login_btn {
+    width: 100%;
+    height: 40px;
+    background-color: yellow;
+    border: none;
+    font-size: 100%;
+}
+
+#kakao_save+label {
+    font-size: 14px;
+}
+
+#kakao_qr {
+    height: 60px;
+    background-color: rgb(218, 218, 218);
+    position: relative;
+}
+
+.search_account_block {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+}
+
+#kakao_qr::before {
+    content: '또는';
+    display: block;
+    width: 100%;
+    color: gray;
+    background-color: white;
+    position: absolute;
+    top: 0;
+}

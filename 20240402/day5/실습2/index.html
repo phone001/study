@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./public/css/style.css">
+    <link rel="stylesheet" href="./public/css/kakao_style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div>
+            <!-- 간편 로그인 버튼 -->
+            <input type="radio" id="kakao" name="popup_button">
+            <input type="radio" id="naver" name="popup_button">
+            <input type="radio" id="google" name="popup_button">
+
+            <!-- 닫기 버튼 -->
+            <input type="radio" id="exit" name="popup_button" checked>
+
+            <!-- 간편 로그인시 뜨는 팝업 -->
+            <div class="popup">
+                <label for="exit"></label>
+                <div class="kakao-popup">
+                    <ul>
+                        <li class="kakao_header">
+                            <h1>kakao</h1>
+                        </li>
+                        <li>
+                            <div class="kakao_login_input_block">
+                                <input type="text" placeholder="카카오메일 아이디, 이메일, 전화번호">
+                            </div>
+                            <div class="kakao_login_input_block">
+                                <input type="password" placeholder="비밀번호">
+                            </div>
+                            <div>
+                                <input type="checkbox" id="kakao_save">
+                                <label for="kakao_save">간편 로그인 정보저장</label>
+                            </div>
+                            <div>
+                                <button class="kakao_login_btn">로그인</button>
+
+
+                                <!-- 가상요소로 "또는"이 들어가야함  -->
+
+                                <button id="kakao_qr" class="kakao_login_btn">QR코드 로그인</button>
+                            </div>
+                            <div class="search_account_block">
+                                <div>
+                                    <a>회원가입</a>
+                                </div>
+                                <div>
+                                    <div>
+                                        <a>계정 찾기</a>
+                                        <a>비밀번호</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="header">
+                <ul class="title">
+                    <li>
+                        <h1>회원 로그인</h1>
+                    </li>
+                    <li>
+                        <p>"금성출판사 티칭허브에 오신걸 환영합니다."</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="content">
+                <ul style="width:100%">
+                    <li class="logo-block">
+                        <img src="./public/image/image.png" alt="이미지 없음">
+                    </li>
+                    <li>
+                        <input type="text" placeholder="아이디">
+                    </li>
+                    <li>
+                        <input type="password" placeholder="비밀번호">
+                    </li>
+                    <li class="search-btn">
+                        <div>
+                            <input type="checkbox" id="save">
+                            <label for="save">아이디 저장</label>
+                        </div>
+                        <div>
+                            <a id="id_search">아이디 찾기</a>
+                            <a>비밀번호 찾기</a>
+                        </div>
+                    </li>
+                    <li class="login-btn-block">
+                        <button>로그인</button>
+                    </li>
+                    <li class="login-btn-block">
+                        <button id="new_account_btn">회원가입</button>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="footer">
+                <ul>
+                    <li class="simple-login-img">
+                        <img src="./public/image/simple_login_img.png">
+                    </li>
+                    <li class="simple-login-btn">
+                        <!-- 버튼과 팝업 -->
+
+                        <label for="kakao">
+                            <img src="./public/image/icon/kakao.jpg" alt="아이콘 없음">
+                        </label>
+
+                        <label for="naver">
+                            <img src="./public/image/icon/naver.jpg" alt="아이콘 없음">
+                        </label>
+
+                        <label for="google">
+                            <img src="./public/image/icon/google.png" alt="아이콘 없음">
+                        </label>
+
+
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
