@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <!-- position사용? -->
+    <!-- 전체 컨테이너 -->
+    <div class="container">
+        <!-- 전체 정렬을 위한 컨테이너 -->
+        <div>
+            <!-- title -->
+            <div>
+                <h2>전체영화</h2>
+            </div>
+            <!-- 메뉴 -->
+            <div class="tabmenu">
+
+                <input type="radio" id="tab01" name="tabmenu" checked>
+                <label for="tab01">박스오피스</label>
+                <input type="radio" id="tab02" name="tabmenu">
+                <label for="tab02">상영예정작</label>
+                <input type="radio" id="tab03" name="tabmenu">
+                <label for="tab03">특별상영</label>
+                <div style="display: flex; justify-content: space-between;">
+                    <div>
+
+                        <input type="checkbox">
+                    </div>
+                    <div>
+                        <input type="text" placeholder="영화명 검색 ">
+                        <img class="searchimg" src="./image/돋보기.png">
+                    </div>
+                </div>
+
+                <!-- 리스트1 -->
+                <div class="box view1">
+                    <div>
+                        <img src="./image/movie1/image1.jpg" alt="이미지 없음">
+                    </div>
+                    <div class="movie-block1">
+                        <div>
+                            <span>예매율</span>
+                        </div>
+                        <div></div>
+                        <div>
+                            <span>개봉일 00.00.00</span>
+                        </div>
+                    </div>
+                    <div style="display: flex;justify-content: space-between;">
+                        <button>222</button>
+                        <button>예매</button>
+
+                    </div>
+                </div>
+                <!-- 리스트2 -->
+                <div class="box view2">
+                    뷰2입니다
+                </div>
+                <!-- 리스트3 -->
+                <div class="box view3">
+                    뷰3입니다
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>

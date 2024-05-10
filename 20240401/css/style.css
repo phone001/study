@@ -1,0 +1,132 @@
+div {
+    border: 1px solid black;
+    width: 300px;
+    height: 300px;
+}
+
+div img {
+    width: 100%;
+    height: 100%;
+}
+
+.box img {
+    /* translate : x,y,z 축으로 이동할 수치 */
+    transform: translate(100px, 100px);
+    /*해당 태그의 위치를 요소 기준에서 움직인다. */
+}
+
+/* 
+    transform
+    본인 요소 기준으로 요소의 위치 이동이나 회전, 크기 조정 등
+*/
+
+.box2 img {
+    /* translatex : x축의 이동할 수치만 */
+    transform: translatex(100px)
+}
+
+.box3 img {
+    /* translatey : y축의 이동할 수치만 */
+    transform: translatey(100px)
+}
+
+.box4 img {
+    /*  
+        수치는 1부터 기본사이즈
+        sclae : 요소의 크기를 조정하는 데 x축과 y축 기준으로 요소의 크기를 조절할 수 있다. 
+     */
+    transform: scale(0.5, 0.5);
+}
+
+.box5 img {
+    /* 
+        요소를 회전시켜줌
+        값은 각도의 수치
+        값deg
+        트랜스 폼은 자주 사용됨
+     */
+    transform: rotate(45deg);
+}
+
+/* 
+        요소가 애니메이션의 속성을 가지고 애니메이션 동작하게
+        애니메이션 속성을 만들고 
+        @keyframes애니메이션의 이름을 정할 때 앞에 구문작성
+    */
+@keyframes ani {
+    0% {
+        /*요소가 어느 스타일에서부터 동작하는지*/
+        transform: rotate(0);
+    }
+
+    50% {
+        /* 요소가 0% 스타일에서 50%까지 진행되면 어떤 스타일을 가지고 있는지 */
+        transform: rotate(360deg);
+    }
+
+    100% {
+        /* 요소가 50%에서 100%까지 어떤 스타일을 가지고 있을지 */
+        transform: rotate(0);
+    }
+}
+
+.box6 img {
+    /* 
+    요소의 스타일이 변경되면 선형보간 
+    아래의 예제는 3초 동안 변한다
+    linear선형으로 진행
+    transform요소의 이동이나 크기관련
+    */
+    transition: transform 3s linear;
+    /* 
+    ease : 타이밍함수 
+    빠르게 또는 느리게
+    animation : keyframes의 이름 시간 변화 방법
+    */
+    animation: ani 1s ease;
+}
+
+/* 
+    position
+    absolute - 요소의 위치에서 부모요서가 relative인 요소를 찾아 그 기준으로 이동
+    relative - 요소의 위치 기준으로 이동 수치 지정
+*/
+
+/* 
+    position속성이 있을대 사용할 수 있는 속성
+    top, left,right, bottom
+ */
+.box7 {
+    position: relative;
+    top: 10px;
+}
+
+/* 
+    flex로 중앙 정렬하는 방식이 있는데 
+    position을 사용해서 가운데로 요소가 겹치게 만들고 싶다
+*/
+.box8 {
+    /* 
+        부모요소 중 position이 relative인 요소를 찾아 그 기준으로 움직임
+        position이 relative 없다면 body요소가 기준이 된다.
+     */
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: blue;
+}
+
+.box9 {
+    background-color: aqua;
+}
+
+.nickname-block {
+    position: relative;
+}
+
+.nickname-block>span {
+    position: absolute;
+}

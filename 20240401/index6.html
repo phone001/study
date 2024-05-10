@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 인접 형제 선택자 */
+        p+a {
+            color: red;
+        }
+
+        /* 일반 형제 선택자 */
+        p~a {
+            color: aqua;
+        }
+
+        #tab_menu>input {
+            display: none;
+        }
+
+        #tab_menu>input+label {
+            display: inline-block;
+            padding: 20px;
+            background-color: rgb(196, 196, 196);
+            color: gray;
+            font-size: 14px;
+            /* 
+                마우스를 올렸을 때 커서가 변경되는 효과 
+                클릭할 수 있는 요소라는 인터렉션
+             */
+            cursor: pointer;
+        }
+
+        /* 
+            checked속성이 있는 input 요소의인접형제 
+            label요소에게 스타일 적용 
+        */
+        #tab_menu>input:checked+label {
+            background-color: antiquewhite;
+            color: black;
+        }
+
+        .box {
+            width: 500px;
+            height: 600px;
+            background-color: aliceblue;
+            margin: 0 auto;
+            display: none;
+        }
+
+        /* 
+            속성 선택자
+            checked 속성과 id가 tab01인 요소를 선택하고 싶을 때
+        */
+        input[id="tab01"]:checked~.con1 {
+            display: block;
+        }
+
+        input[id="tab02"]:checked~.con2 {
+            display: block;
+        }
+
+        input[id="tab03"]:checked~.con3 {
+            display: block;
+
+        }
+    </style>
+</head>
+
+<body>
+    <p>인접 형제 선택자</p>
+    <a href="">인접 형제</a>
+    <div></div>
+
+    <div id="tab_menu">
+        <input type="radio" id="tab01" name="tabmenu" checked>
+        <label for="tab01">탭1</label>
+        <input type="radio" id="tab02" name="tabmenu">
+        <label for="tab02">탭2</label>
+        <input type="radio" id="tab03" name="tabmenu">
+        <label for="tab03">탭3</label>
+        <div class="box con1">1번 탭</div>
+        <div class="box con2">2번 탭</div>
+        <div class="box con3">3번 탭</div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+.container {
+    width: 100%;
+    display: flex;
+    position: relative;
+}
+
+.title {
+
+    width: 100%;
+    position: relative;
+}
+
+.title>h3 {
+    display: inline;
+}
+
+#userimg {
+    width: 40px;
+    border-radius: 50%;
+}
+
+.icon {
+    display: hidden;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    right: 0;
+}
+
+.content {
+    width: 100%;
+    padding: 10px;
+
+}
+
+.btn {
+    background-color: gray;
+    margin-right: 5px;
+    font-size: 12px;
+}
+
+.btn-box {
+    display: flex;
+}

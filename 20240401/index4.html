@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /*
+        id 속성의 스타일은 최우선 순위로 한다.
+        단 !important속성이 있다면 그것이 최우선 순위가 된다. 
+        */
+        #devs {
+            color: blue;
+
+        }
+
+        .devops {
+            color: red !important;
+        }
+
+        .devops {
+            color: aqua;
+        }
+
+        .devops {
+            color: black;
+        }
+
+        /*자식 태그 중 dev-content 해댱 클래스를 가지고 있는 바로 아래*/
+        .devops2>.dev-content {
+            color: red;
+        }
+
+        /*클래스를 둘다 가지고 있는 요소 devops2, devops3 이 두가지의 클래스를 가지고 있는 요소에게 스타일 적용*/
+        .devops2 .devops3 {
+            color: aqua;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="devs" class="devops">
+        데브옵스
+    </div>
+    <div class="devops2">
+        <div class="dev-content">
+            나는 devops의 자식이야.
+        </div>
+        <div clsaa="dev-content">
+            나는 devops의 손자야
+        </div>
+    </div>
+    <div class="devops2 devops3">
+        나는 devops2와 devops3야
+    </div>
+</body>
+
+</html>

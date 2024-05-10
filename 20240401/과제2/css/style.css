@@ -1,0 +1,51 @@
+.container {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+
+
+.box {
+    width: 100%;
+    height: 10px;
+    display: none;
+}
+
+.searchbar {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.searchbar>input {
+    border: none;
+}
+
+.searchimg {
+    margin-left: 4px;
+    width: 20px;
+    height: 20px;
+}
+
+input[id="tab01"]:checked~.view1 {
+    display: block;
+}
+
+input[id="tab02"]:checked~.view2 {
+    display: block;
+}
+
+input[id="tab03"]:checked~.view3 {
+    display: block;
+}
+
+.movie-block1 {
+    display: flex;
+    justify-content: space-between;
+}
