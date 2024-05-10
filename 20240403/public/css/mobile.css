@@ -1,0 +1,306 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* 스마트폰사이즈?
+@media screen and (min-width:213.333vw) {
+    .box {
+        width: 138.889vw;
+        height: 138.889vw;
+        background-color: aqua;
+    }
+}
+
+/* 태블릿 사이즈 
+@media screen and (min-width:275.556vw) {
+    .box {
+        width: 138.889vw;
+        height: 138.889vw;
+        background-color: red;
+    }
+}
+
+/* 데스크탑 사이즈 
+@media screen and (min-width:284.444vw) {
+    .box {
+        width: 138.889vw;
+        height: 138.889vw;
+        background-color: blue;
+    }
+}
+*/
+#wrap {
+    width: 100%;
+    /* 브라우저의 높이값 */
+    /* height: 100vh; */
+    overflow: hidden;
+
+}
+
+#wrap>#header>.gnb {
+    width: 100%;
+    height: 16.667vw;
+    background-color: #444;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+#wrap>#content {
+    width: 100%;
+    min-height: calc(100% - 33.333vw);
+    background-color: rgb(212, 212, 212);
+}
+
+#content>.title {
+    width: 100%;
+    height: 18.056vw;
+    background-color: white;
+    border-top: 0.278vw solid gray;
+    border-bottom: 0.278vw solid gray;
+    font-size: 4.444vw;
+    font-weight: 800;
+    padding: 0 2.222vw;
+    display: flex;
+    align-items: center;
+}
+
+#content>.nav-wrap {
+    position: relative;
+}
+
+#content>.nav-wrap>.nav {
+    width: 100%;
+    height: 12.5vw;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding: 0 2.222vw;
+}
+
+.nav-wrap>.nav li {
+    display: block;
+    padding: 1.667vw 2.222vw;
+    font-weight: 800;
+}
+
+.nav-wrap>button {
+    width: 13.889vw;
+    height: 11.111vw;
+    border-radius: 1.667vw;
+    border: 0;
+    position: absolute;
+    top: 0.694vw;
+    right: 2.222vw;
+    background-color: #c5c5c5;
+}
+
+.nav-wrap>button::after,
+.nav-wrap>button::before {
+    content: '';
+    position: absolute;
+    width: 2.778vw;
+    border: 0.556vw solid white;
+    left: 0;
+    top: 50%;
+
+
+}
+
+.nav-wrap>button::after {
+    left: calc(50% - 1.389vw);
+    border-radius: 0.556vw;
+    transform: translate(-50%, -50%) rotate(35deg);
+}
+
+.nav-wrap>button::before {
+    left: calc(50% + 1.389vw);
+    border-radius: 0.556vw;
+    transform: translate(-50%, -50%) rotate(-35deg);
+
+}
+
+#content>.card-wrap {
+    padding: 3.333vw 1.667vw;
+
+
+}
+
+.card-wrap>.card>img {
+    width: 100%;
+
+}
+
+.card-wrap>.card {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5.556vw;
+}
+
+.card-wrap>.card>div {
+    height: 19.444vw;
+    width: 100%;
+}
+
+.card>div>h3 {
+    font-size: 3.333vw;
+    width: 100%;
+    height: 50%;
+    display: flex;
+
+    align-items: center;
+    padding: 0 2.222vw;
+    border-bottom: 0.278vw solid rgb(206, 206, 206);
+    box-sizing: border-box;
+    position: relative;
+}
+
+.card>div>h3::after {
+    content: 'new';
+    color: white;
+    display: block;
+
+
+    background-color: red;
+    position: absolute;
+    left: 24.444vw;
+    padding: 0.556vw 1.389vw;
+}
+
+.card>div>div {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 2.222vw;
+    box-sizing: border-box;
+    align-items: center;
+    font-size: 3.333vw;
+}
+
+.card>div>div>span {}
+
+#content>.card-wrap>.card {
+    width: 100% height: 72.222vw;
+    background-color: white;
+
+}
+
+.nav-wrap>.nav li.active {
+    color: red;
+}
+
+
+
+.gnb .gnb_button {
+    display: block;
+    width: 16.667vw;
+    height: 16.667vw;
+    position: relative;
+}
+
+.gnb .gnb_button span {
+    display: block;
+    width: 5.556vw;
+    height: 1.111vw;
+    background-color: white;
+    position: absolute;
+    border-radius: 0.833vw;
+    left: 5.556vw;
+    top: 4.167vw;
+}
+
+/* 
+    nth-child
+    자식 중에서 n번째
+*/
+/* .gnb .gnb_button span:nth-child(1) {
+    display: block;
+    width: 2.778vw;
+    height: 2.778vw;
+
+} */
+
+.gnb .gnb_button span:nth-child(2) {
+    top: 50%;
+    transform: translateY(-50%);
+
+}
+
+.gnb .gnb_button span:nth-child(3) {
+    top: auto;
+    bottom: 4.167vw;
+    /* transform: translateY(-50%); */
+}
+
+.gnb .user-icon {
+    display: block;
+    width: 16.667vw;
+    height: 16.667vw;
+}
+
+.gnb .logo {
+    color: white;
+    font-weight: 800;
+}
+
+#header>.notification {
+    width: 100%;
+    height: 12.5vw;
+    display: flex;
+    align-items: center;
+    padding: 0 2.222vw;
+    font-size: 3.333vw;
+
+}
+
+#header>.notification>i {
+    border: 2.222vw solid blue;
+    border-radius: 50%;
+    margin-right: 2.778vw;
+}
+
+.gnb>.user-icon {
+    display: block;
+    width: 16.667vw;
+    height: 16.667vw;
+    position: relative;
+    /* background-image: url(../image/icon/usericon.png);
+    background-size: cover;
+    background-position: 0 0;
+    background-repeat: none; */
+}
+
+.gnb>.user-icon span:nth-child(1) {
+    content: '';
+
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 2.778vw;
+    transform: translateX(-50%);
+    border: 2.5vw solid white;
+    border-radius: 50%;
+}
+
+.gnb>.user-icon span:nth-child(2) {
+    content: '';
+
+    background-color: white;
+    position: absolute;
+    left: 50%;
+    top: 7.5vw;
+    transform: translateX(-50%);
+    border: 2.778vw solid white;
+    border-radius: 13.889vw 13.889vw 0 0;
+}
+
+/* 반응형 웹은 모바일 사이즈부터 만든다 */
+@media screen and (min-width:768px) {}
+
+@media screen and (min-width:992px) {}
+
+@media screen and (min-width:1024px) {}

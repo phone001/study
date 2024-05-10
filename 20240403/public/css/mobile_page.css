@@ -1,0 +1,90 @@
+/*
+페이지네이션 이미지
+https://www.dbcut.com/theme/dbcut/img/btn_next.gif
+https://www.dbcut.com/theme/dbcut/img/btn_end.gif
+
+서치 이미지 
+https://www.dbcut.com/skin/board/bookmark/img/sch_btn.png
+*/
+
+.paging {
+    width: 100%;
+    padding: 20px 0;
+    background-color: rgb(212, 212, 212);
+}
+
+.paging>ul {
+    width: 80%;
+    height: 40px;
+    background-color: rgb(212, 212, 212);
+    margin: 0 auto;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.paging>ul>li {
+    width: 30px;
+    height: 30px;
+    background-color: antiquewhite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgb(196, 194, 194);
+    border-radius: 6px;
+    background-color: white;
+}
+
+.paging>ul>.active {
+    background-color: black;
+    color: white;
+}
+
+.paging>ul>.next {
+    background-image: url(https://www.dbcut.com/theme/dbcut/img/btn_next.gif);
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
+.paging>ul>.end {
+    background-image: url(https://www.dbcut.com/theme/dbcut/img/btn_end.gif);
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
+.search {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+    background-color: white;
+}
+
+.search>select {
+    width: 100px;
+    height: 40px;
+    border: 0;
+}
+
+.search>div {
+    display: flex;
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+}
+
+.search>div>img {
+    width: 15px;
+
+}
+
+.search>input {
+    width: 220px;
+    height: 28px;
+    padding: 0;
+    margin: 0;
+    border: 0;
+}

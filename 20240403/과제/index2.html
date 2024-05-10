@@ -1,0 +1,788 @@
+<html><head><script type="text/javascript">
+    //<![CDATA[
+    
+    //' ######################################################################
+    //Server Const Start
+    //' ######################################################################
+    //업로드 관련
+    var UPLOAD_MAX_SIZE_GOODS = 10240000;
+    
+    //상품등록 항목 최대개수
+    var MAX_AMT_IMGETC = 10;		//다른이미지
+    var MAX_AMT_RELATE = 99;		//관련추천상품 (최대 99개까지, 0으로 설정할 경우 무제한)
+    var MAX_AMT_OPTION = 10;
+    
+    var PRICE_ROUND_UNIT = 0;		//가격 계산시 절사단위 = -1 : 10원 단위, -2 : 100원 단위, -3 : 1000원 단위
+    
+    var DELIMITER = '|:|';		//기본 구분자
+    var DELIMITER1 = '|*|';		//추가 구분자1
+    var DELIMITER_OPTION = '§';		//옵션정보 구분자 (',', '/' 제외)
+    var DELIMITER_VOCAB = '§';		//어휘 구분자
+    
+    //적용단위
+    var CM_APPUNIT_WON = 'WON';
+    var CM_APPUNIT_PCT = 'PCT';
+    
+    var CM_LCS_DEVICE_ID = 'dv_id';		//로컬 스토리지 디바이스 아이디
+    
+    var CM_LCS_SEARCH_WORD = "sword";		//로컬 스토리지 검색어
+    //' ######################################################################
+    //Server Const End
+    //' ######################################################################
+    
+    
+    
+    //' ######################################################################
+    //Config Variable Start
+    //' ######################################################################
+    var cfgIsSSL='T';			//SSL 사용 여부
+    var cfgisSweetTracker='T';			//SweetTracker 사용 여부
+    //' ######################################################################
+    //Config Variable End
+    //' ######################################################################
+    
+    
+    
+    //' ######################################################################
+    //Global Variable Start
+    //' ######################################################################
+    //Global Variable
+    var gloUserAgent = navigator.userAgent;
+    var gloUserAgentLCase = gloUserAgent.toLowerCase();
+    var gloChkApp = '';		//어플 접속 확인
+    var gloDeviceID = '';		//디바이스아이디
+    var gloToday = new Date();
+    
+    var gloDoubleSubmitFlag	= false;		//이중 전송 방지
+    var gloRefreshFlag = true;		//새로고침 무한 루프 방지
+    
+    //모바일 페이지를 PC 에서도 확인한다고하여 기본값을 보이게 처리
+    var gloView_M_Category = true;		//false;		//모바일 카테고리 보이기 설정
+    var gloView_PC_Category = true;		//false;		//PC 카테고리 보이기 설정
+    
+    var gloChk_Mobile = false;		//모바일 접속 여부
+    if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent)
+        || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(navigator.userAgent.substr(0,4))) {
+        gloChk_Mobile = true;
+    }
+    
+    //if ( gloChk_Mobile ) {
+    //	gloView_M_Category = true;
+    //} else {
+    //	gloView_PC_Category = true;
+    //}
+    //' ######################################################################
+    //Global Variable End
+    //' ######################################################################
+    
+    //]]>
+    </script>
+    
+    
+    
+    
+    
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0, user-scalable=no">
+    <!-- <meta name="viewport" content="width=480, maximum-scale=0.666, initial-scale=0.666, minimum-scale=0.666, user-scalable=yes" /> -->
+    <meta name="format-detection" content="telephone=no">
+    
+    <title></title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="SHORTCUT ICON" href="https://www.jejugage.co.kr/data/Jejugage/favicon.ico?1712159023">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="">
+    <meta property="og:description" content="">
+    <meta property="og:image" content="https://www.jejugage.co.kr/data/Jejugage/imgSNS.gif?v=2024-04-03 오후 3:43:43">
+    <meta property="og:url" content="https://www.jejugage.co.kr">
+    
+    
+    <!-- <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons"> -->
+    <link rel="stylesheet" href="/m/css/googleapisicon.css?family=Material+Icons">
+    
+    <!-- <link rel="stylesheet" type="text/css" href="/m/css/icon_font.css" /> -->
+    <link rel="stylesheet" type="text/css" href="/m/css/base.css">
+    <link rel="stylesheet" type="text/css" href="/css/animate.css">
+    <link rel="stylesheet" type="text/css" href="/css/slick.css">
+    <link rel="stylesheet" type="text/css" href="/m/css/swiper.min.css">
+    <link rel="stylesheet" type="text/css" href="/m/css/swiper10.3.1.min.css">
+    <link rel="stylesheet" type="text/css" href="/m/css/jquery.mobile-1.4.5.min.css">
+    
+    <!-- alert창 레이어로 -->
+    <link rel="stylesheet" type="text/css" href="/m/css/sweetalert.css">
+    <link rel="stylesheet" type="text/css" href="/m/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/m/css/docs.css">
+    <!-- alert창 레이어로 끝 -->
+    
+    <style>
+    /*----------------------------------------------------------------------------------------------------*/
+    
+    :root {
+        --sitecolor1 : #6446FF;
+        --sitecolor2 : #B1A4F5;
+        --sitecolor3 : #FFEBEB;
+    }
+    
+    .sitebg1 {background:#6446FF !important;}
+    .sitebg2 {background:#B1A4F5 !important;}
+    .sitebg3 {background:#FFEBEB !important;}
+    
+    .sitecolor1 {color:#6446FF !important;}
+    .sitecolor2 {color:#B1A4F5!important;}
+    .sitecolor3 {color:#FFEBEB !important;}
+    
+    .siteborder1 {border-color:#6446FF !important;}
+    .siteborder2 {border-color:#B1A4F5!important;}
+    .siteborder3 {border-color:#FFEBEB !important;}
+    
+    .priceStyle1 {color:color:#FF5252;font-size:14px;font-weight:bold; !important;}
+    
+    /*----------------------------------------------------------------------------------------------------*/
+    .searchMenu li.on a {color: #6446FF !important;}
+    .searchMenu li.on a em {color:#6446FF !important;}
+    
+    /*sweet-alert 커스텀*/
+    .sweet-alert{outline:none;}
+    .btnBS{background-color:#6446FF !important;border-color:#B1A4F5;outline:none !important; border:none;}
+    .btnBS.btnBS-default{color:#333;background-color:#fff !important;border-color:#ccc !important;}
+    /*.sa-icon.sa-custom{width:auto !important;padding:50% 0;background-position:center;background-size:cover;}*/
+    /*sweet-alert 커스텀 끝*/
+    
+    .layerFix.L-filter .secMid ul li .con label.on{border-color:#B1A4F5;}
+    
+    li .pdBtnBox ul li:nth-of-type(3).qBtn a span,
+    li .pdBtnBox ul li:nth-of-type(3).qBtn a i{background:#6446FF;}
+    
+    /*********************************** 시작 *************************************/
+    
+    /*face모바일*/
+    .priceBox dl.totalprice {background-color:#B1A4F5;}
+    .priceBoxBtn a {background-color:#6446FF;}
+    
+    /*********************************** 끝 *************************************/
+    
+    .mtp_prc .prc_right .prc em{color:#6446FF}
+    
+    /* 언니뷰티 */
+    .unniB_story_wrap .user .user_img img {border:1px solid #6446FF;}
+    .unniB_story_wrap .btm .btm-t-more .red {color:#6446FF;}
+    .btnSt_01.active .following {background-color:#6446FF;}
+    .unniB_story_wrap .top .more_vert.add {border:1px solid #6446FF; background-color:#6446FF;}
+    /*.unniB_story_wrap .comm_wrap:before {border-left: 2px solid #6446FF;}
+    .unniB_story_wrap .btm .btm-t:before {border-left: 2px solid #6446FF;}
+    .story_detail_wrap .insta_cont2 .insta_cont2_tit:before {border-left: 2px solid #6446FF;}*/
+    .my_page_profile {background-color:#6446FF;}
+    .Profile_Wrap .info .insta_only>div a {background-color:#6446FF; border-color:#6446FF;}
+    .unni_menu_wrap .info2>div:first-child>strong {color:#6446FF;}
+    .unni_menu_wrap .info2>div>p i {color:#6446FF;}
+    .Profile_Wrap .cont .view_btn li.on span {color:#6446FF; border-bottom-color:#6446FF; font-weight:bold;}
+    .last_btn_wrap .last_btn {border-color:#6446FF; background-color:#6446FF;}
+    .my_cash_wrap .top .lgt strong {color:#6446FF;}
+    .my_cash_wrap .top .rgt>div>p i {color:#6446FF;}
+    .my_reward_wrap .desc .box_area>div.sum {color:#6446FF;}
+    .my_event_prod_wrap .list_wrap .list .lgt .ico {background-color:#6446FF;}
+    
+    /* 청춘플러스 네비게이션 */
+    .sub_cont2 .Location ul li a.on {background-color:#6446FF;}
+    .sub_cont2 .Location ul li:first-child a {border-left:1px solid #6446FF;}
+    .sub_cont2 .Location ul li {border-right:1px solid #6446FF;}
+    .btnSt_02 {background-color:#6446FF;}
+    .sub_cont2 .info_area .btn_wrap .Like.on {background-color:#6446FF;}
+    
+    .consultingWrap .ui-datepicker .ui-datepicker-calendar td.ui-datepicker-today a {border:1px solid #B1A4F5; color:#B1A4F5 !important;}
+    .sub_btmFloat>div a {color:#B1A4F5; display:block;}
+    
+    /* 결제확인 방법 */
+    .pay_ul > div.on label.pay_label{z-index:10; color:#B1A4F5; background-color:#B1A4F5;}
+    .pay_ul > div.on label span input[type=radio] + span{color:#B1A4F5;}
+    .board_write td .color{color:#B1A4F5;}
+    .uncked {color:#B1A4F5;}
+    
+    /* 최근본 상품 포인트 컬러 */
+    .viewItem .list .listItem.today .list__recent-item::before {background:#6446FF;}
+    .viewItem .list .listItem.today .textDate {background:#6446FF;}
+    
+    /*셀렉트*/
+    .select_option.focus {border:1px solid #6446FF; z-index:99;}
+    .select_option .option_list.on {display:block; border:1px solid #6446FF;}
+    .select_option.focus .option_list {display:block; border:1px solid #6446FF;}
+    /*비회원주문창*/
+    .onpmt li div.on {color:#fff; background-color:#B1A4F5; border-color:#B1A4F5;}
+    #select_option2.focus {border-color:#6446FF;}
+    input[type=radio] + .roundsh {position:relative; display:inline-block; width:20px; height:20px; border:1px solid #B1A4F5; border-radius:50%; background:none; padding-right:0; vertical-align:bottom;}
+    input[type=radio] + .roundsh:after {display:none; width:0; height:0; border:1px solid #B1A4F5; border-radius:50%; transition:all 1s ease-out;}
+    </style>
+    
+    
+    <link rel="stylesheet" type="text/css" href="/m/css/commontotal.css">
+    <link rel="stylesheet" type="text/css" href="/data/Jejugage/m/css/common.css">
+    
+    
+    
+    <!-- jscript 글로벌변수 선언부 -->
+    
+    
+    <script type="text/javascript">
+    //<![CDATA[
+    
+    //' ######################################################################
+    //Server Const Start
+    //' ######################################################################
+    //업로드 관련
+    var UPLOAD_MAX_SIZE_GOODS = 10240000;
+    
+    //상품등록 항목 최대개수
+    var MAX_AMT_IMGETC = 10;		//다른이미지
+    var MAX_AMT_RELATE = 99;		//관련추천상품 (최대 99개까지, 0으로 설정할 경우 무제한)
+    var MAX_AMT_OPTION = 10;
+    
+    var PRICE_ROUND_UNIT = 0;		//가격 계산시 절사단위 = -1 : 10원 단위, -2 : 100원 단위, -3 : 1000원 단위
+    
+    var DELIMITER = '|:|';		//기본 구분자
+    var DELIMITER1 = '|*|';		//추가 구분자1
+    var DELIMITER_OPTION = '§';		//옵션정보 구분자 (',', '/' 제외)
+    var DELIMITER_VOCAB = '§';		//어휘 구분자
+    
+    //적용단위
+    var CM_APPUNIT_WON = 'WON';
+    var CM_APPUNIT_PCT = 'PCT';
+    
+    var CM_LCS_DEVICE_ID = 'dv_id';		//로컬 스토리지 디바이스 아이디
+    
+    var CM_LCS_SEARCH_WORD = "sword";		//로컬 스토리지 검색어
+    //' ######################################################################
+    //Server Const End
+    //' ######################################################################
+    
+    
+    
+    //' ######################################################################
+    //Config Variable Start
+    //' ######################################################################
+    var cfgIsSSL='T';			//SSL 사용 여부
+    var cfgisSweetTracker='T';			//SweetTracker 사용 여부
+    //' ######################################################################
+    //Config Variable End
+    //' ######################################################################
+    
+    
+    
+    //' ######################################################################
+    //Global Variable Start
+    //' ######################################################################
+    //Global Variable
+    var gloUserAgent = navigator.userAgent;
+    var gloUserAgentLCase = gloUserAgent.toLowerCase();
+    var gloChkApp = '';		//어플 접속 확인
+    var gloDeviceID = '';		//디바이스아이디
+    var gloToday = new Date();
+    
+    var gloDoubleSubmitFlag	= false;		//이중 전송 방지
+    var gloRefreshFlag = true;		//새로고침 무한 루프 방지
+    
+    //모바일 페이지를 PC 에서도 확인한다고하여 기본값을 보이게 처리
+    var gloView_M_Category = true;		//false;		//모바일 카테고리 보이기 설정
+    var gloView_PC_Category = true;		//false;		//PC 카테고리 보이기 설정
+    
+    var gloChk_Mobile = false;		//모바일 접속 여부
+    if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent)
+        || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(navigator.userAgent.substr(0,4))) {
+        gloChk_Mobile = true;
+    }
+    
+    //if ( gloChk_Mobile ) {
+    //	gloView_M_Category = true;
+    //} else {
+    //	gloView_PC_Category = true;
+    //}
+    //' ######################################################################
+    //Global Variable End
+    //' ######################################################################
+    
+    //]]>
+    </script>
+    
+    
+    
+    
+    
+    <!-- <script language="javascript" src="/m/js/jquery-1.9.1.min.js"></script> -->
+    <script language="javascript" src="/m/jscript/jquery-1.12.4.min.js"></script>
+    
+    
+    
+    <script type="text/javascript">
+    //<![CDATA[
+    
+    //검색어 상수
+    var CM_LCS_SEARCH_WORD = "sword";
+    
+    //]]>
+    </script>
+    
+    
+    
+    <script type="text/javascript" src="/m/js/JsBarcode.code128.min.js"></script>
+    <script type="text/javascript" src="/jscript/slick.min.js"></script>
+    <script language="javascript" src="/m/js/imagesloaded.pkgd.min.js"></script>
+    <script language="javascript" src="/m/js/masonry.pkgd.min.js"></script>
+    <script language="javascript" src="/m/jscript/jquery.easing.1.3.js"></script>
+    <script type="text/javascript" src="/jscript/wow.min.js"></script>
+    <script type="text/javascript" src="/jscript/jquery-ui.js"></script>
+    <script type="text/javascript" src="/m/jscript/swiper.min.js"></script>
+    <script type="text/javascript" src="/m/jscript/swiper-bundle.min.js"></script>
+    <!-- <script type="text/javascript" src="/m/jscript/jquery.mobile-1.4.5.min.js"></script> -->
+    <!-- <script type="text/javascript" src="/m/jscript/jquery.mobile-1.4.5.js"></script> -->
+    
+    <script language="javascript" src="/m/jscript/mobile.js"></script>
+    
+    
+    <!-- <script language="javascript" src="/m/jscript/mobile_JQM.js"></script> -->
+    
+    
+    <script language="javascript" src="/m/jscript/user_func.js?ver=1.1"></script>
+    <script language="javascript" src="/m/jscript/common.js?ver=20240403154343"></script>
+    <script language="javascript" src="/m/jscript/cookie.js"></script>
+    <script language="javascript" src="/m/jscript/ajax.js"></script>
+    <script language="javascript" src="/m/jscript/app_connect.js"></script>
+    
+    <!-- alert창 레이어로 -->
+    <!-- <script language="javascript" src="/m/jscript/sweetalert.js"></script> -->
+    <script language="javascript" src="/m/jscript/sweetalert.min.js"></script>
+    <!-- <script language="javascript" src="/m/jscript/ui-sweetalert.min.js"></script> -->
+    <!-- alert창 레이어로 끝 -->
+    
+    <script type="text/javascript" src="/jscript/jquery.bxslider.min.js"></script>
+    <script type="text/javascript" src="/jscript/clipboard.min.js"></script>
+    <script type="text/javascript">
+    //<![CDATA[
+    
+    //사파리에서(ios) 뒤로가기시 로딩나올때...
+    $(window).bind("pageshow", function(event) {
+        if ( event.originalEvent && event.originalEvent.persisted) {
+             window.location.reload();
+        }
+    });
+    
+    //]]>
+    </script>
+    
+    <script>if (getLCS("UserIDSave")!=null && getLCS("UserIDSave")!="" && getLCS("uuuuuuuID")!=null && getLCS("uuuuuuuID")!="") { 	document.write('<style>body{opacity:0;}</style>');	$.ajax({ 		url:"/m/mobile_loginOk.asp" 		, type:"post" 		, data:{token:"RTAIIYNPLANDCHOON60", id:getLCS("uuuuuuuID"), pass:getLCS("uuuuuuuPASS"), pwd:getLCS("uuuuuuuPWD")} 		, success:function(r){if (!(/result\=[\w]+/).test(r)) {if (document.URL.indexOf('intro.asp')>-1){location.replace('/');}else{location.reload();}}} 	});}</script><script>
+        var otype = localStorage.getItem("otype");
+        var otoken = localStorage.getItem("otoken");
+        otype = otype==null ? 'isnull' : otype=='' ? 'isnull': otype;
+        otoken = otoken==null ? 'isnull' : otoken=='' ? 'isnull': otoken;
+        if (otype!='isnull' && otoken!='isnull'){
+            $.ajax({
+                url:"/OAuth/oauth_auto_login.asp",
+                data:{otype:otype,otoken:otoken},
+                success:function(res){if(res=='OKOK') location.reload();}
+            })
+        }
+    </script>
+    
+    <script src="/jscript/jquery.visible.js"></script>
+    
+    <!-- <script src="/addon/live/js/common_code.js.asp"></script> -->
+    <script>
+    
+    var cfgkakaotalkCode="f18b8feafa31abef45e79b93ef576ac5";
+    var siteURL="https://www.jejugage.co.kr";
+    var smsBodyDelim="?";
+    var pathSite="/data/Jejugage";
+    var cfgCategoryType="0";
+    var pathLeftmenu = "/data/Jejugage/leftmenu";
+    </script>
+    
+    <style type="text/css">
+    #SLB_loading {display:none;}
+    </style></head>
+    
+    
+    
+    
+    
+    <body><div id="slb"></div>
+    <script type="text/javascript" src="/jscript/SimpleLightBox.js"> </script>
+    <script type="text/javascript">
+        function pop_login(){
+            //slb_div();
+            //fn_Lightbox('/m/pop_login.asp?result=','iframe',660,620,true,false,"No");
+            //location.href='/m/pop_login.asp?result=';
+            location.href='/m/main/intro.asp';
+        }
+    
+        
+    
+    </script>
+    
+    
+        <div id="wrapper">
+            <div id="container">
+            <a href="/m/mobile_logout.asp" class="hide">로그아웃</a> <!-- 임시로 만든 로그아웃 -->
+    <style type="text/css">
+    #container {background:none;overflow: hidden;}
+    html,
+    body{height:100%;font-family:tahoma, 'NanumBarunGothic', dotum, sans-serif}
+    body{background-color:#000}
+    .top_box {position:fixed;width:100%;height:100%;overflow:hidden;top: 0;}
+    .top_box .yt_wrap {position:absolute;left:0;right:0;top:0;bottom:0;z-index:-99}
+    .top_box .yt_box {position:absolute;left:50%;top:50%;width:1280px;height:720px}
+    .top_box .title {position:absolute;left:50%;top:0;width:500px;height:240px;margin-left:-250px;text-indent:-9999px; background:url("/data/Jejugage/banner/checkbox.png") no-repeat center center;/* background:url("../images/logo.png") no-repeat 0 0*/}
+    .top_box .btn_pop{position:absolute;left:50%;top:50%;width:128px;height:128px;margin-left:-64px;margin-top:-24px; /*background:url("../images/btn_pop.png") no-repeat 0 0;*/background:url("/data/Jejugage/banner/logo.png") no-repeat 0 0; cursor:pointer}
+    .btn_pop{position:absolute; right:10%; bottom:10px; width:50px;height:50px; margin:0 auto; /*background:url("../images/btn_pop.png") no-repeat 0 0;*/background:url("/data/Jejugage/banner/logo.png") no-repeat center center; background-size:100% 100%;  cursor:pointer}
+    /*.top_box .btn_vol{position:absolute;right:20px;top:20px;width:32px;height:32px; z-index:3;/*background:url("../images/volume.png") no-repeat;*/ background:url("/data/Jejugage/banner/place.png") no-repeat;cursor:pointer}*/
+    .top_box .btn_vol.on{background-position:0 0}
+    .top_box .btn_vol.off{background-position:0 -32px}
+    .top_box .bg_dot{position:absolute;width:100%;height:100%;left:0;top:0;z-index:1;background:linear-gradient(180deg, rgba(0,200,120,1) 0%, rgba(0,200,228,1) 100%);}
+    /* navigation */
+    .top_box .control{position:absolute;left:0;top:50%;margin-top:140px;width:100%;text-align:center}
+    .top_box .control li{display:inline-block;list-style:none;padding:10px 14px;margin:0 0 4px 0;border:1px solid #FFFFFF;border-radius:8px;width:100px;height:22px;line-height:22px;font-size:14px;color:#FFFFFF;background-color:rgba(255,255,255,.4);cursor:pointer}
+    .top_box .control li.on,
+    .top_box .control li:hover{background-color:#FFFFFF;color:#000000}
+    /* popup */
+    .pop_yt{position:absolute;left:0;top:50%;width:100%;height:350px;margin-top:-150px;z-index:99;box-shadow:0 0 20px rgba(0,0,0,.2); text-align:center;}
+    .pop_yt .close{position:absolute;right:5%;top:-40px;width:40px;height:40px;/*background:url("../images/close.png") no-repeat 0 0;*/ background:url("/images/blank.png") no-repeat 0 0;cursor:pointer}
+    .pop_overlay{display:none;position:absolute;width:100%;height:100%;left:0;top:0; /*background:url("../images/bg_pop.png");*/ background:url("/images/blank.png");z-index:9}
+    
+    .footer{position:absolute;left:0;bottom:10px;width:100%;font-size:11px;text-align:center;color:#525252}
+    .footer a{color:#525252}
+    .intro_height {position:fixed;top: 0;width: 100%;}
+    
+    .introInner {overflow: auto;height:100%;}
+    .intro_text_box {position:relative;top:75px;left:0;z-index:10;width:100%;padding-bottom:70px;}
+    .intro_text {font-size:50px; color:#fff; text-align:center; line-height:18px;}
+    .intro_text a.main_Go {display: inline-block; background: rgba(225,225,225,0.7); color: #000; border-radius: 20px; padding: 3px 30px; font-size: 30px; font-weight: normal;
+    transition: all 0.6s;
+    -moz-transition: all 0.6s;
+    -webkit-transition: all 0.6s;
+    -o-transition: all 0.6s;
+    -ms-transition: all 0.6s;
+    }
+    .intro_text a.main_Go:hover {background: rgba(0,0,0,0.7); color:#fff;
+    transition: all 0.6s;
+    -moz-transition: all 0.6s;
+    -webkit-transition: all 0.6s;
+    -o-transition: all 0.6s;
+    -ms-transition: all 0.6s;
+    }
+    
+    
+    
+    body {min-height:100%;}
+    .spdreaming_intro {min-height:100%; overflow:hidden; position:relative;}
+    .spdreaming_con {margin:0 20px;padding:20px 0;background:#fff;border-radius:20px;}
+    .spdreaming_con .logo{width:40%;margin:0 auto 20px;text-align:center;}
+    .spdreaming_con .logo img {width:80%;max-width:300px;}
+    .spdreaming_con .login_input{width:100%;padding:0 20px;box-sizing:border-box;}
+    .spdreaming_con .login_input .inputBox {text-align:left; position:relative;margin-bottom:20px;}
+    .spdreaming_con .login_input .inputBox .intro_input_type {font-size:14px; color:#999;font-weight: 700;display:inline-block; position:absolute; left:26px; top:0; line-height:50px;}
+    .spdreaming_con .login_input .inputBox .introInput {width:100%;height:60px;font-size:22px;color:#222;margin:0;padding:0 20px;background:#f8f8fb;border:none;border-radius:10px;box-sizing:border-box;line-height:60px;}
+    .spdreaming_con .login_input .inputBox .introInput::placeholder{font-size:18px;color:#C2C2CC;}
+    .spdreaming_con .login_input .inputBox.checkStyle{font-size:22px;font-weight:bold;color:#555;}
+    .spdreaming_con .login_input .inputBox .login_input_Btn{display:inline-block;width:100%;height:60px;margin-bottom:20px;font-size:22px;color:#fff;background:#6446FF;border:none;border-radius:10px;line-height:60px;text-align:center;}
+    .spdreaming_con .login_input li.right {text-align:right;}
+    .spdreaming_con .login_input .center {text-align: center;}
+    .spdreaming_con .login_input .inputBox .loginMenu {display:flex;justify-content:space-between;width:75%;margin:0 auto;}
+    .spdreaming_con .login_input .inputBox .loginMenu li {}
+    .spdreaming_con .login_input .inputBox .loginMenu li:first-child {border-left:0;}
+    .spdreaming_con .login_input .inputBox .login_input_Btn02 {font-size:18px;color:#C2C2CC;}
+    .spdreaming_con .left_A_list {padding-top:20px;}
+    .spdreaming_con .left_A_list li {background:url('/css/images/spdreaming_intro_left_bar.png')no-repeat left center; background-size:30px 1px; box-sizing:border-box; padding:10px 0 10px 40px; text-align:left;}
+    .spdreaming_con .left_A_list a {font-size:15px; color:#000;}
+    
+    
+    .layer_noti {display:none; position: fixed; top: 0; left: 0; height:80%;width: 100%; height:100%;border-radius: 0;background:none; color: #333; box-sizing: border-box; z-index: 9999;}
+    .layer_noti_con {position:absolute; left:0; top:7%; width:100%; height:93%;  overflow:auto;-webkit-overflow-scrolling : touch;  background:#fff; padding: 25px; box-sizing:border-box;}
+    .layer_close {background:#262626; text-align:right;}
+    .layer_close span.close {cursor:pointer;}
+    .layer_close span.close img{width:50px;margin:10px;}
+    .layer_noti_con h1 {background:url('/data/Jejugage/banner/place.png')repeat-x 0 0 ; background-color:#f47661;   height: 54px; line-height: 55px; color: #fff; font-size: 15px; font-weight: bold; text-align: center;}
+    .layer_noti_con .contant {background:#f1f1f1; margin-top:25px; box-sizing:border-box; padding:10px; text-align:left; font-size:14px;}
+    .layer_noti_con .contant img {max-width:100%; }
+    
+    .spdreaming_con .login_input .inputBox .tit{display:inline-block;font-size:22px;font-weight:bold;color:#555;}
+    .spdreaming_con .login_input .inputBox .tit:after{margin-left:8px;font-size:20px;color:#6446ff;content:"*";}
+    .spdreaming_con .login_input .inputBox .tit span {margin-right:6px;}
+    label input[type=checkbox] + span {margin-right:8px;padding:0;width:24px;height:24px;background:none;border:1px solid #000;border-radius:100%;}
+    label input[type=checkbox]:checked + span{position:relative;background:#8459DC;border:none;}
+    label input[type=checkbox]:checked + span:before{position:absolute;top:9px;left:7px;width:3px;height:8px;background:#fff;content:"";transform:rotate(-45deg);}
+    label input[type=checkbox]:checked + span:after{position:absolute;top:6px;left:12px;width:3px;height:12px;background:#fff;content:"";transform:rotate(45deg);}
+    label input[type=checkbox]:disabled + span{opacity:.5;}
+    
+    .registWrap{display:flex;justify-content:space-between;margin-top:20px;padding:0 20px;}
+    .registWrap .registBox{width:49%;padding:20px;background:#fff;border-radius:20px;}
+    .registWrap .registBox.leftBox{margin-right:4%;}
+    .registWrap .registBox .imgBox{width:53px;height:51px;margin:0 auto 10px;}
+    .registWrap .registBox .txt{font-size:18px;font-weight:bold;color:#555;text-align:center;}
+    </style>
+    <script type="text/javascript" src="/jscript/SHA512.js"></script>
+    <script type="text/javascript" src="/OAuth/oauth.js"></script>
+    <script type="text/javascript" src="/jscript/common.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $("#id").focus();
+        $("#pass").keypress(function(){
+            if (event.which == 13) loginChk();
+        });
+    
+        getSaveID();
+    });
+    
+    function loginChk() {
+        var uid = $("#id").val();
+        var pass = $("#pass").val();
+        var isSave = $(":checkbox[name=isSave]:checked").val();
+        var token = $("#token").val();
+    
+        if (chkNull(uid)) {
+            alert("아이디를 입력해 주세요.");
+            $("#id").focus();
+            return;
+        }
+        if (chkNull(pass)) {
+            alert("비밀번호를 입력해 주세요.");
+            $("#pass").focus();
+            return;
+        }
+        if(chkNull(isSave)){
+            isSave = "F";
+        }
+        UserIDSave();
+        return true;
+    
+        /*
+        var pwd = SHA512(pass.trim());
+        $("#pwd").val(pwd);
+    
+        document.Frm.submit();
+        */
+    }
+    
+    </script>
+    
+    
+    
+    
+    
+    <div class="intro_height fixedPos" style="height: 863px;">
+        <div class="introInner">
+            <div class="intro_text_box">
+                <div class="intro_text">
+                    <form name="Frm" method="post" action="/m/mobile_loginOk.asp" onsubmit="return loginChk();">
+                        <input type="hidden" id="token" name="token" value="RTAIIYNPLANDCHOON60">
+                        <input type="hidden" id="redirect" name="redirect" value="/m/guide/default.asp?">
+                        <input type="hidden" id="failUrl" name="failUrl" value="/m/main/intro.asp">
+                        <input type="hidden" id="mainURL" name="mainURL" value="<%=mainURL%>">
+                        <!-- <input type="hidden" id="pwd" name="pwd"> -->
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, minimum-scale=1.0, user-scalable=yes, shrink-to-fit=no">
+                        <div class="spdreaming_intro">
+                            <div class="spdreaming_con">
+                                <div class="logo">
+                                    <a href="/m/main/intro.asp" target=""><img src="https://www.jejugage.co.kr/data/Jejugage/banner/logo.png" border="0"></a>
+                                </div>
+    
+                                <div class="login_input">
+                                    <div class="inputBox">
+                                        <label for="id" class="tit mb10">아이디</label>
+                                        <div><input type="text" class="introInput" name="id" id="id" value="" placeholder="아이디입력"></div>
+                                    </div>
+                                    <div class="inputBox">
+                                        <label for="pass" class="tit mb10">비밀번호</label>
+                                        <div><input type="password" class="introInput" name="pass" id="pass" placeholder="비밀번호 입력"></div>
+                                    </div>
+                                    <div class="inputBox checkStyle"><label for="isSave"><input id="isSave" name="isSave" value="T" type="checkbox" style="display:none;" onclick="UserIDSave();"><span></span>자동로그인</label></div>
+                                    <div class="inputBox mb0"><!-- <a href="#:warp" onclick="loginChk()" class='login_input_Btn'>로그인</a> --><button class="login_input_Btn">로그인</button></div>
+                                    <div class="center inputBox mb0">
+                                        <ul class="loginMenu">
+                                            <li class="hide"><a href="/m/member/regist_form_wv.asp" class="login_input_Btn02">회원가입</a></li>
+                                            <li><a href="/m/member/find_id_hp_form.asp" class="login_input_Btn02">아이디 찾기</a></li>
+                                            <li><a href="/m/member/find_pass_hp_form.asp" class="login_input_Btn02">비밀번호 찾기</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+    
+                                <ul class="left_A_list hide">
+    
+                                </ul>
+                            </div>
+                            <!-- <div class="layer_noti">
+                                <div class='layer_close'><span class="close" onclick="layer_noti_close();"><a href='/m/main/intro.asp' target=''><img src='https://www.jejugage.co.kr/data/Jejugage/banner/logo.png' border=0></a></span></div>
+                                <div class="layer_noti_con">
+                                    <h1>제목1</h1>
+                                    <div class="contant">
+                                        내용1
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layer_noti">
+                                <div class='layer_close'><span class="close" onclick="layer_noti_close();"><a href='/m/main/intro.asp' target=''><img src='https://www.jejugage.co.kr/data/Jejugage/banner/logo.png' border=0></a></span></div>
+                                <div class="layer_noti_con">
+                                    <h1>제목2</h1>
+                                    <div class="contant" style='background:#fff;'>
+                                        내용2
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layer_noti">
+                                <div class='layer_close'><span class="close" onclick="layer_noti_close();"><a href='/m/main/intro.asp' target=''><img src='https://www.jejugage.co.kr/data/Jejugage/banner/logo.png' border=0></a></span></div>
+                                <div class="layer_noti_con">
+    
+                                    <h1>제목3</h1>
+                                    <div class="contant" style='background:#fff; padding:0;'>
+                                        내용3
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+                    </form>
+                    <!-- <div class="btn_pop"></div><br> -->
+                    <!-- <a href="/m/main/main.asp" class="main_Go">SKIP</a> -->
+                </div>
+                <div class="registWrap">
+                    <div class="registBox leftBox">
+                        <div class="imgBox">
+                            <a href="/m/member/regist_place_reg.asp" target=""><img src="https://www.jejugage.co.kr/data/Jejugage/banner/place.png" border="0"></a>
+                        </div>
+                        <p class="txt">관광지 가입</p>
+                    </div>
+                    <div class="registBox rightBox">
+                        <div class="imgBox">
+                            <a href="/m/member/regist_agent_reg.asp" target=""><img src="https://www.jejugage.co.kr/data/Jejugage/banner/agent.png" border="0"></a>
+                        </div>
+                        <p class="txt">관광기사 가입</p>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="top_box fixedPos">
+                <!-- <div class="title">AOA</div> -->
+    
+                <div class="btn_vol on"></div>
+                <div class="bg_dot"></div>
+    
+                <!-- YouTube position -->
+                <div class="yt_wrap" style="height: 883px;">
+                    <div id="player" class="yt_box" style="width: 1534px; height: 883px; margin-left: -767px; margin-top: -441.5px;"></div>
+                </div>
+            </div>
+        </div>
+        <!-- popup -->
+    
+        <div class="pop_yt" style="display:none">
+            <div class="close"></div>
+            <iframe width="90%" height="250" style="display:inline-block;" src="" frameborder="0" allowfullscreen=""></iframe>
+        </div>
+        <div class="pop_overlay"></div>
+    
+    
+    
+        <script>
+        // YouTube ID
+        var bgID = ["q6f-LLM1H6U","qEYOyZVWlzs","R1-BTf3_Mys","N5wzkQvzp4c","9ZC4sPxMQ_M"];
+        var popID =["q6f-LLM1H6U","qEYOyZVWlzs","R1-BTf3_Mys","N5wzkQvzp4c","9ZC4sPxMQ_M"];
+        </script>
+        <script type="text/javascript">
+        <!--
+            $(document).ready(function(){
+                pageH();
+            });
+            $(window).resize(()=>{
+                pageH();
+            });
+    
+    
+            const pageH = () => {
+                var moniterheight = $(window).height()
+                $(".intro_height").height(moniterheight)
+            }
+        //-->
+        </script>
+        <script src="/jscript/ytbgnav.js"></script>
+    </div>
+    
+    
+    
+    
+    <script type="text/javascript">
+    function layer_noti_close (){
+        $('.layer_noti').hide();
+    }
+    
+    $(document).ready(function(){
+        //tab
+        $(".left_A_list li").click(function(){
+            $(".left_A_list li a").removeClass("on");
+            $(this).find("a").addClass("on");
+            $(".layer_noti").hide();
+            $(".layer_noti").eq($(this).index()).show();
+        });
+    });
+    
+    
+    
+    
+    
+    function UserIDSave(){
+        var result=$("input:checkbox[id='isSave']").is(":checked");
+        var saveID=$("#id").val();
+        if (saveID!="" && result){
+    //		 <%'//2018-01-16 khs : 로그인 유지%>
+             setLCS("UserIDSave", saveID);
+             setLCS("<%=CM_LCS_USER_ID%>" ,saveID)
+             setLCS("<%=CM_LCS_USER_PASS%>" , $("#pwd").val())
+             setLCS("<%=CM_LCS_USER_PWD%>" ,$("#pwd").val())
+        }
+        if (saveID==""){
+            $("#isSave").prop('checked', false) ;
+        }
+        if (result==false){
+            removeLCS("<%=CM_LCS_USER_ID%>");
+        }
+    }
+    
+    function getSaveID(){
+        var saveID=getLCS("<%=CM_LCS_USER_ID%>");
+        if (saveID != "" && saveID != null){	// 20180222 kyh && saveID != null 추가
+            $("#isSave").prop('checked', true) ;
+            $("#id").val(saveID);
+        }
+    }
+    
+    function passChk(){
+        const paramData = paramChk('result');
+    
+        if(paramData == 'id'){
+            alert('가입된 아이디가 없습니다.');
+        }else if(paramData == 'pass'){
+            alert('비밀번호가 다릅니다.');
+        }
+    }
+    passChk();
+    </script>
+    
+            </div>
+    
+        </div>
+    
+    
+    
+    <script type="text/javascript">
+        $(document).ready(function(){
+            setGnb(1);
+        });
+    </script>
+    <!-- <script type="text/javascript" src="/m/main/popup_main.js.asp"></script> -->
+    <script type="text/javascript">
+    $('#token').val('RTAIIYNPLANDCHOON60');	// 20170501 kyh
+    
+    if ( $('#redirect').length>0 ){
+        $('#redirect').val('/m/guide/default.asp?');
+    } else {
+        $('[name=Frm]').append('<input type="hidden" id="redirect" name="redirect" value="/m/guide/default.asp?">')
+    }
+    </script>
+    
+    </body></html>
