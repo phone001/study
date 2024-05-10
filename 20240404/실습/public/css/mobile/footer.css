@@ -1,0 +1,38 @@
+#wrap>#footer {
+    width: 100%;
+    background-color: black;
+    padding-bottom: 5.556vw;
+}
+
+#footer>div:nth-child(1) {
+    display: flex;
+    justify-content: space-between;
+    padding: 3.333vw 6.667vw;
+    font-weight: bold;
+}
+
+#footer>div:nth-child(2) {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    color: gray;
+}
+
+#footer>button {
+    width: 88.889vw;
+    margin-top: 5.556vw;
+    margin: 0 auto;
+    display: block;
+    font-size: 3.889vw;
+    height: 11.111vw;
+    background-color: gray;
+    border: 0;
+    border-radius: 1.111vw;
+    color: white;
+}
+
+
+#footer>div>span {
+    font-size: 3.889vw;
+    color: white;
+}

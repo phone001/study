@@ -1,0 +1,33 @@
+.state {
+    width: 100%;
+    padding: 2.778vw 2.222vw;
+    box-sizing: border-box;
+}
+
+.state>span {
+    background-color: blue;
+    width: 27.778vw;
+    height: 8.333vw;
+    display: flex;
+    border-radius: 2.778vw;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 3.333vw;
+    font-weight: 800;
+}
+
+.state>.state-content {
+    width: 91.111vw;
+    /* margin-top: 5.556vw; */
+    background-color: white;
+    margin: 2.778vw auto;
+    padding: 1.111vw 1.667vw;
+}
+
+.state>.state-content>div {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 3.333vw;
+}

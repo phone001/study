@@ -1,0 +1,8 @@
+/* 데스크톱 사이즈 이상으로 넘어가면 */
+@media screen and (min-width : 1024px) {
+
+    #wrap {
+        width: 1200px;
+        margin: auto;
+    }
+}

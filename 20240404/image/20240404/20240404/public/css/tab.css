@@ -1,0 +1,250 @@
+@media screen and (min-width : 992px) {
+    #wrap>#header>.gnb {
+        height: 80px;
+        background-color: white;
+        border: 1px solid;
+        box-sizing: border-box;
+        /* color: black !important; */
+        position: relative;
+    }
+
+    @keyframes logoAni {
+        0% {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        100% {
+            position: absolute;
+            left: 10px;
+            transform: translateX(50%);
+        }
+    }
+
+    #header>.gnb>.logo {
+        color: black;
+        /* forwards 애니메이션에 속성으로 주면 애니메이션이 끝나고의 스타일이 유지된다. */
+        /* infinite 애니메이션이 무한 루프 진행 */
+        animation: logoAni 1s forwards;
+    }
+
+    .pc {
+        display: block;
+    }
+
+    #header>.gnb>.gnb-search::placeholder {
+        color: #556ada;
+    }
+
+    #header>.gnb>.gnb-search {
+        display: block;
+        width: 600px;
+        border: 1px solid #556ada;
+        border-radius: 4px;
+        margin: auto;
+        padding: 6px 8px;
+    }
+
+    .gnb .gnb-button {
+        display: none;
+    }
+
+    .gnb .gnb-button span {
+        display: none;
+    }
+
+    .gnb .user-icon {
+        display: none;
+    }
+
+
+    #header>.notification {
+        height: 45px;
+        padding: 0 8px;
+        font-size: 12px;
+        display: none;
+    }
+
+    .menu {
+        display: flex;
+        list-style: none;
+        align-items: center;
+        justify-content: space-between;
+        padding-right: 20px;
+        background-color: #556ada;
+        color: white;
+        font-weight: 800;
+        font-size: 14px;
+    }
+
+    /* 햄버거 버튼 영역*/
+    .menu li:nth-child(1) {
+        background-color: blue;
+        width: 50px;
+        height: 50px;
+    }
+
+    #wrap>#content {}
+
+    .nav-wrap>button {
+        width: 60px;
+        height: 40px;
+        border-radius: 6px;
+        top: 2.5px;
+        right: 8px;
+    }
+
+    .nav-wrap>button::after,
+    .nav-wrap>button::before {
+        width: 10px;
+        border: 2px solid white;
+    }
+
+    .nav-wrap>button::after {
+        left: calc(50% - 5px);
+        border-radius: 2px;
+    }
+
+    .nav-wrap>button::before {
+        left: calc(50% + 5px);
+        border-radius: 2px;
+    }
+
+    #content>.card-wrap {
+        width: 70%;
+        padding: 12px 6px;
+        height: 1850px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: start;
+        align-items: start;
+        float: left;
+    }
+
+    #content>.login {
+        width: 25%;
+        display: block;
+        margin: 0 0;
+        float: right;
+    }
+
+    #content>.login div {
+        width: 100%;
+        height: 200px;
+        background-color: aliceblue;
+        border: 1px solid;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #content>.card-wrap>.card {
+        width: 200px;
+        height: 150px;
+        margin: 10px 10px;
+    }
+
+    .card-wrap>.card>div {
+        height: 70px;
+    }
+
+    .card>div>h3 {
+        font-size: 12px;
+        width: 348px;
+        padding: 0 8px;
+        border-bottom: 1px solid rgb(191, 191, 191);
+    }
+
+    .card>div>h3::after {
+        padding: 2px 5px;
+        left: 88px;
+    }
+
+    .card>div>div {
+        padding: 0 8px;
+        font-size: 12px;
+    }
+
+    .paging {
+        width: 356px;
+        margin: auto;
+        padding: 20px 0;
+    }
+
+    .paging>ul {
+        height: 40px;
+    }
+
+    .paging>ul>li {
+        width: 30px;
+        height: 30px;
+        border: 1px solid rgb(168, 168, 168);
+        border-radius: 6px;
+    }
+
+    .search {
+        height: 40px;
+    }
+
+    .search>select {
+        width: 100px;
+        height: 40px;
+    }
+
+    .search>input {
+        width: 100%;
+        height: 28px;
+        padding: 3px 6px;
+    }
+
+    .search>div {
+        width: 40px;
+        height: 40px;
+    }
+
+    .search>div>img {
+        width: 15px;
+    }
+
+    .state {
+        width: 100%;
+        padding: 10px 8px;
+        box-sizing: border-box;
+    }
+
+    .state>span {
+        width: 100px;
+        height: 30px;
+        border-radius: 16px;
+        font-size: 12px;
+    }
+
+    .state>.states-content {
+        width: calc(100% - 12px);
+        box-sizing: border-box;
+        margin: 10px auto;
+        padding: 4px 6px;
+    }
+
+    .state>.states-content>div {
+        font-size: 16px;
+    }
+
+
+    #wrap>#footer {
+        padding-bottom: 20px;
+    }
+
+    #footer>div:nth-child(1) {
+        padding: 12px 24px;
+    }
+
+    #footer>button {
+        display: none;
+    }
+
+    #footer>div>span {
+        font-size: 14px;
+    }
+}

@@ -1,0 +1,320 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.header>.top {
+    /* border: 1px solid black; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.container {
+
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+}
+
+.container>div {
+    width: 800px;
+}
+
+
+.header-first>li {
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+}
+
+.header-first>li {
+    font-size: 12px;
+    color: rgb(192, 192, 192);
+}
+
+.header>div>ul,
+.header>div>ul>li {
+    list-style: none;
+}
+
+.loket-img {
+    width: 125px;
+}
+
+.menu>ul {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu>ul>li {
+    display: flex;
+
+}
+
+.menu>ul>li>span {
+    font-size: 12px;
+    margin-right: 10px;
+}
+
+
+
+.menu>ul>li>img+span {
+    font-weight: 800;
+}
+
+
+.cartimg {
+    width: 40px;
+}
+
+
+.main {
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* border: 1px solid black; */
+}
+
+.main>div {
+    margin: 0 10px;
+}
+
+.img-space {
+    width: 120px;
+    height: 100px;
+    border: 1px solid black;
+}
+
+.tag {
+    display: flex;
+}
+
+.tag>p {
+    height: 20px;
+    background-color: blueviolet;
+    color: white;
+    border-radius: 6px;
+    margin: 0 5px;
+    font-size: 14px;
+}
+
+/*  */
+.second-menu {
+    margin: 20px 0;
+}
+
+.second-menu>ul {
+    display: flex;
+}
+
+.second-menu>ul>li {
+    margin: 0 5px;
+}
+
+.second-menu>ul>.study {
+    color: rgb(55, 55, 255);
+    border-bottom: 3px solid rgb(55, 55, 255);
+}
+
+.qna {
+    width: 60%;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+}
+
+.qna>span {
+    color: blue;
+    font-weight: bold;
+    position: absolute;
+    top: 10%;
+    left: 10px;
+}
+
+.text>div {
+    margin: 10px;
+    border: 1px solid rgb(112, 126, 248);
+    padding: 15px;
+}
+
+.text span {
+    font-size: 12px;
+}
+
+.content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.pop {
+    width: 33%;
+
+}
+
+.pop:nth-child(2)>ul {
+    background-color: blue;
+}
+
+.pop>div {
+
+    margin: 10px 0;
+    border: 1px solid black;
+    padding: 10px;
+}
+
+
+.pop>div>button {
+    width: 100%;
+}
+
+.list-style {
+    font-size: 12px;
+    color: rgb(51, 51, 51);
+    list-style-position: inside;
+    background-color: rgb(215, 215, 255);
+}
+
+.list-style~.text2 {
+    width: 100%;
+    padding: 0;
+    display: block;
+    font-size: 12px;
+    background-color: rgb(255, 177, 255);
+    color: rgb(120, 9, 224);
+}
+
+.list-style~.text2>span {
+    margin-left: 10px;
+}
+
+.list-style~.text3>p {
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.list-style~.text3>div {
+    display: flex;
+}
+
+.text3>div>span {
+    font-weight: 800;
+}
+
+.footer {
+    height: 220px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer>div>div {
+    margin-top: 20px;
+}
+
+.foot-text {
+    font-size: 12px;
+}
+
+.last {
+    margin-top: 20px;
+}
+
+.sel {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.sel>div>div {
+    font-weight: 800;
+    ;
+}
+
+.sel>img {
+    width: 30px;
+    height: 30px;
+}
+
+.sel>div>p {
+    display: inline;
+    border: 1px solid red;
+    color: red;
+    font-weight: 800;
+}
+
+.sel>div>span {
+    color: rgb(218, 218, 218);
+    text-decoration: line-through
+}
+
+.sel-block>button {
+    width: 100%;
+    height: 30px;
+    color: white;
+    background-color: rgb(86, 86, 255);
+    border-radius: 4px;
+    ;
+}
+
+.sel~p {
+    font-weight: 800;
+}
+
+.group {
+    font-size: 12px;
+    background-color: rgb(201, 201, 201);
+    border-radius: 4px;
+    color: gray;
+    position: relative;
+}
+
+.group::after {
+    content: '*';
+    position: absolute;
+    color: blueviolet;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.userinfo {
+    display: flex;
+    align-items: center;
+}
+
+.userinfo>* {
+    margin: 5px;
+}
+
+.kakao-block {
+    display: flex;
+    align-items: center;
+}
+
+.kakao-block>* {
+    margin: 0 10px 10px;
+}
+
+.kakao-block>a {
+    font-size: 12px;
+    color: rgb(192, 192, 192);
+    text-decoration: none;
+}
+
+.introduce {
+    font-size: 12px;
+}
+
+.study~li {
+    color: rgb(204, 204, 204);
+}
