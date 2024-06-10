@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <div>
+
+        <div>리스트페이지</div>
+        <div class="board">
+            <ul class="board-header">
+                <li>no</li>
+                <li>title</li>
+                <li>date</li>
+            </ul>
+
+            <%listData.forEach((item)=>{ %>
+                <ul class="board-list">
+                    <li>
+                        <%= item.id%>
+                    </li>
+                    <li>
+                        <%= item.title%>
+                    </li>
+                    <li>
+                        <%= item.date%>
+                    </li>
+                </ul>
+                <%}) %>
+        </div>
+    </div>
+</body>
+
+</html>
