@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>작성페이지</div>
+    <div>
+        <form action="/notice/insert?_method=PATCH" method="post">
+            <div>
+                <label for="title">제목</label>
+                <input type="text" id="title" name="title">
+            </div>
+            <div>
+                <textarea style="resize: none;" name="content" placeholder="내용을 입력하세요"></textarea>
+            </div>
+            <button>작성완료</button>
+        </form>
+    </div>
+</body>
+
+</html>

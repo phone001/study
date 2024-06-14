@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>리스트 페이지</div>
+    <% for(let index in data) {%>
+        <div>
+            <span>
+                <%= data[index].id%>
+            </span>
+            <span>
+                <%=data[index].name%>
+            </span>
+            <span>
+                <%= data[index].number%>
+            </span>
+        </div>
+        <% } %>
+            <div>
+                <a href="/insert">작성으로</a>
+            </div>
+</body>
+
+</html>
