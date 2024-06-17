@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메인페이지</title>
+    <link rel="stylesheet" href="/main.css">
+</head>
+
+<body>
+    <a href="/post/insert">작성하기</a>
+    <div>
+        <ul>
+            <li>번호</li>
+            <li>타이틀</li>
+            <li>내용</li>
+            <li>삭제</li>
+            <li>수정</li>
+        </ul>
+        <% data.forEach(el=>{%>
+            <ul>
+                <li>
+                    <%=el.id%>
+                </li>
+                <li>
+                    <%=el.title%>
+                </li>
+                <li>
+                    <%=el.content%>
+                </li>
+                <li>
+                    <button>삭제</button>
+                </li>
+                <li>
+                    <button>수정</button>
+                </li>
+            </ul>
+            <%})%>
+    </div>
+</body>
+
+</html>
