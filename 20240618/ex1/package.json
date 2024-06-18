@@ -1,0 +1,21 @@
+{
+  "name": "20240618",
+  "version": "1.0.0",
+  "description": "> Json Web Token > 웹 표준으로 두객체의 json 객체를 사용해서 정보를 안정성있게 전달하기 위해 사용 > 사용할 정보를 자체적으로 가지고 있다(노출되도 되는 정보) > JWT로 발금한 토큰은 기본정보(유저 닉넴임 혹은 프로필 경로) > 토큰이 유효한지 변조가되지 않았는지 검증하기 위해서 서명이 포함되어 있다.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.10.1"
+  }
+}
