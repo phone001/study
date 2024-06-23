@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            height: 100vh;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            height: 500px;
+            border: 1px solid;
+        }
+
+        #login {
+            width: 300px;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #main {
+            display: none;
+        }
+
+        #send {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            border: 1px solid;
+            display: flex;
+            box-sizing: border-box;
+        }
+
+        #send #msgInput {
+            border: 0;
+            box-sizing: border-box;
+            padding: 3px 6px;
+            width: 85%;
+
+        }
+
+        #send #sendBtn {
+            background-color: yellow;
+            border: none;
+            box-sizing: border-box;
+            padding: 10px;
+            width: 15%;
+        }
+    </style>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        let socket = null;
+
+        let room = null;
+        let name = null;
+        window.onload = () => {
+            rooms.onchange = (e) => {
+                console.log(e.target.options[e.target.selectedIndex].value)
+                // 이전방의 내용
+                socket.emit("leaveRoom", room, username.value);
+                room = e.target.options[e.target.selectedIndex].value;
+                name = username.value;
+                //변경된 방
+                socket.emit("joinRoom", room, username.value);
+            }
+            loginBtn.onclick = () => {
+                login.style.display = "none";
+                main.style.display = "block";
+                if (!socket)
+                    socket = io.connect();
+
+                room = rooms.options[rooms.selectedIndex].value;
+                name = username.value;
+                if (socket)
+                    socket.emit("joinRoom", room, username.value);
+
+                socket.on("joinRoom", (room, name) => {
+                    const li = document.createElement("li");
+                    li.classList.add("join-text");
+                    li.innerHTML = `${room}에 ${name}가 들어왔다`;
+                    message.append(li);
+                })
+                socket.on("leaveRoom", () => {
+                    const li = document.createElement("li");
+                    li.classList.add("join-text");
+                    li.innerHTML = `${room}에 ${name}가 나갔어`;
+                    message.append(li);
+                })
+                socket.on("chat", (name, msg) => {
+                    const li = document.createElement("li");
+                    li.classList.add("join-text");
+                    li.innerHTML = `${name} : ${msg}`;
+                    message.append(li);
+                })
+            }
+            sendBtn.onclick = () => {
+                socket.emit("chat", room, name, msgInput.value)
+                msgInput.value = "";
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="content">
+        <div>귀여운 동물 카톡</div>
+        <div id="login">
+            <h1>로그인</h1>
+            <input type="text" id="username">
+            <button id="loginBtn">접속</button>
+        </div>
+        <div id="main">
+            <select name="" id="rooms">
+                <option value="병아리">병아리 방</option>
+                <option value="오리">오리 방</option>
+                <option value="준후">준후 방</option>
+            </select>
+            <ul id="message"></ul>
+            <div id="send">
+                <input type="text" id="msgInput">
+                <button id="sendBtn">보내기</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

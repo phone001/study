@@ -1,0 +1,15 @@
+{
+  "name": "20240621",
+  "version": "1.0.0",
+  "description": "> 채팅을 구현한더던지 알람기능 데이터를 요청해서 받아서페이지의 내용을 그려준다거나 했지만  > 이제 서버에서 요청을 보낼 수 있게 양방향 통신이 가능하게 > 보기에는 실시간으로 채팅이나 게시글이 등록되는것 처럼 동작하고 싶을 때 사용",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ws": "^8.17.1"
+  }
+}

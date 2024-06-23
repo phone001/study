@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메인</title>
+    <script>
+        const socket = new WebSocket("ws://localhost:3000");
+        socket.addEventListener("message", (event) => {
+            console.log(event.data);
+            const _div = document.createElement("div");
+            _div.innerHTML = event.data
+            chat.append(_div)
+        })
+        function onSubmit() {
+            const message = document.querySelector("#chatInput").value;
+            socket.send(message);
+
+        }
+        function initInput() {
+            document.querySelector("#chatInput").value = "";
+        }
+        window.onload = () => {
+            document.onkeyup = (e) => {
+                if (e.keyCode === 13) {
+                    onSubmit();
+                    initInput();
+                }
+            }
+        }
+
+    </script>
+</head>
+
+<body>
+    <div>채팅창</div>
+    <div>
+        <label>입력</label>
+        <input type="text" id="chatInput">
+        <button id="chatSubmit" onclick="onSubmit()">보내기</button>
+    </div>
+    <div id="chat">
+
+    </div>
+</body>
+
+</html>
