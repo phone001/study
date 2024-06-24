@@ -1,0 +1,19 @@
+.seat {
+    width: 30px;
+    height: 30px;
+    /* float: left; */
+    margin: 2px;
+    border-radius: 4px;
+}
+
+.line {
+    display: flex;
+}
+
+.seat.enable {
+    background-color: gray;
+}
+
+.seat.disable {
+    background-color: violet;
+}

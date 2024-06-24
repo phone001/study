@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/popup.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
+</head>
+
+<body>
+    <select name="" id="selectBox">
+        <option>1시 버스</option>
+        <option>2시 버스</option>
+        <option>3시 버스</option>
+        <option>그림판</option>
+    </select>
+    <div id="content">
+
+    </div>
+</body>
+<script src="/popup.js"></script>
+<script>
+    let selectIndex = 0;
+    const socket = io.connect();
+    socket.on("reRender", (data) => {
+        if (data.index === selectIndex) {
+            const { selectIndex: { x, y } } = data;
+            const target = document.querySelector(`div[data-x="${x}"][data-y="${y}"]`);
+            // target.classList.add("disable");
+            target.classList.remove("enable");
+        }
+        // const target = document.querySelectorAll(".seat");
+        // const { selectIndex } = data;
+        // target[selectIndex].classList.remove("enable");
+        // target[selectIndex].classList.add("disable");
+        // target[selectIndex].onclick = null;
+    })
+
+    const handlerClickBtn2 = () => {
+        console.log("취소 버튼");
+    }
+    const handlerClickSeat = (e) => {
+        const x = e.target.getAttribute("data-x");
+        const y = e.target.getAttribute("data-y");
+        const handlerClickBtn1 = () => {
+            socket.emit("reserve", { selectIndex: { x, y }, index: selectIndex });
+        }
+        popup.open();
+        popup.addEventListener(handlerClickBtn1, handlerClickBtn2);
+
+    }
+
+    const renderSeats = async (index) => {
+        content.innerHTML = "";
+        const { data } = await axios.get(`/seats/${index}`);
+        console.log(data);
+
+        data.forEach((line, indexY) => {
+            let lineEl = document.createElement("div");
+            lineEl.classList.add("line");
+
+            line.forEach((element, indexX) => {
+                let seatEl = document.createElement("div");
+                seatEl.classList.add("seat");
+                seatEl.setAttribute("data-x", indexX);
+                seatEl.setAttribute("data-y", indexY);
+                if (element === 1) {
+                    seatEl.classList.add("enable");
+                    seatEl.onclick = (e) => {
+                        handlerClickSeat(e);
+                    }
+                } else if (element === 2) {
+                    seatEl.classList.add("disable");
+                    // seatEl.onclick = (e) => {
+                    //     handlerClickSeat(e);
+                    // }
+                }
+                lineEl.append(seatEl);
+            });
+            content.append(lineEl)
+        });
+    }
+
+    selectBox.onchange = function () {
+        selectIndex = this.selectedIndex;
+        renderSeats(selectIndex);
+    }
+    renderSeats(0);
+    const popup = new Popup("예매 하시겠습니까?");
+
+</script>
+
+</html>
