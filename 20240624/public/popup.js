@@ -28,7 +28,6 @@ class Popup {
         popupContent.innerHTML = this.text;
         document.body.append(bg);
         this.popup = bg;
-
     }
     open() {
         if (!this.popup.classList.contains("is-active"))

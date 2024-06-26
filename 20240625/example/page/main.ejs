@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>할 일 목록</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/popup.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/js/popup.js"></script>
+    <script>
+        let popupObj = null;
+
+
+        const viewAdd = () => {
+            popupObj = new Popup();
+            popupObj.open();
+            const submit = popupObj.popup.querySelector("#submitBtn");
+
+            submit.onclick = createTodo;
+            todoImg.onchange = (e) => {
+                viewImg(e, insertImg)
+            }
+        }
+        const viewImg = (e, img) => {
+            const file = new FileReader();
+            file.onload = (el) => {
+                img.src = el.target.result;
+            }
+            file.readAsDataURL(e.target.files[0])
+
+        }
+        const createTodo = async () => {
+            const { todo, todoImg, comDate } = popupObj.popup.querySelector("form");
+            console.log(comDate.value === "" ? new Date() : comDate.value)
+            const data = { todo: todo.value, todoImg: todoImg.files[0], comDate: comDate.value === "" ? new Date() : comDate.value }
+            const form = new FormData();
+            form.append("todo", todo.value);
+            form.append("todoImg", todoImg.files[0]);
+            form.append("comDate", comDate.value === "" ? new Date() : comDate.value);
+            const response = await axios.post("/insert", form, {
+                "Content-Type": "multipart/form-data"
+            })
+            if (response.status == 200) {
+                location.reload();
+            }
+        }
+        const updateTodo = (id) => {
+            axios.put("http://localhost:3000", { id });
+        }
+        const delTodo = (id) => {
+            axios.delete("http://localhost:3000", { id });
+        }
+        const onComplete = function (e, strid) {
+            const str = document.querySelector(`#${strid}`);
+            if (e.checked) {
+                str.classList.add("is-complete");
+            } else {
+                str.classList.remove("is-complete");
+            }
+        }
+
+
+    </script>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="TodoList">
+            <div class="header">
+                <h1>ToDoList</h1>
+            </div>
+            <div class="content">
+                <div class="todo-header">
+                    <ul>
+                        <li class="todo-complete">
+                            <span>완료</span>
+                        </li>
+                        <li class="todo-content-img">
+                            <span>이미지</span>
+                        </li>
+                        <li class="todo-content">
+                            <span>할 일</span>
+                        </li>
+                        <li class="todo-complete-date">
+                            <span>완료일자</span>
+                        </li>
+                        <li class="todo-btn">
+                            비고
+                        </li>
+                    </ul>
+                </div>
+                <div class="todo-contents">
+                    <%if(data===null){%>
+                        <div class="empty-list">할일이 없습니다.</div>
+                        <%}else{%>
+                            <% data.forEach((item,index)=>{%>
+                                <ul>
+                                    <li class="todo-complete">
+                                        <input type="checkbox" onchange="onComplete(this,'content<%=index%>')"
+                                            <%=data.complete?checked:''%>>
+                                    </li>
+
+                                    <li class="todo-content-img">
+                                        <img src="<%=item.img%>">
+                                    </li>
+
+                                    <li class="todo-content">
+                                        <span id="content<%=index%>">
+                                            <%=item.content%>
+                                        </span>
+                                    </li>
+                                    <li class="todo-tcomplete-date">
+                                        <%=item.completeDate%>
+                                    </li>
+                                    <li class="todo-btn">
+                                        <button onclick="updateTodo(<%=item.id%>)">수정</button>
+                                        <button onclick="delTodo(<%=item.id%>)">삭제</button>
+                                    </li>
+                                </ul>
+                                <%})%>
+
+                                    <%}%>
+                </div>
+                <div class="todo_tbn">
+                    <button>저장</button>
+                    <button onclick="viewAdd()">추가</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+</html>
