@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        const deletePost = (id, name) => {
+            const form = document.querySelector("#from");
+            console.log(form)
+            const { id, name } = form;
+            id.value = id;
+            name.value = name;
+            form.method = "post";
+            form.action = "/post_delete?_method=delete";
+            form.submit();
+
+        }
+
+    </script>
+</head>
+
+<body>
+    작성자 : <%=data.name%>
+        <ul>
+            <% data.posts.forEach(el=>{ %>
+                <li>
+                    <form id="form" action="">
+                        <input type="text" name="id" hidden>
+                        <input type="text" name="name" hidden>
+
+                        <%=el.id%>. <%=el.content%>
+                                <button onclick="deletePost('<%=el.id%>','<%=data.name%>')">삭제</button>
+                    </form>
+
+                </li>
+                <% })%>
+
+        </ul>
+</body>
+
+</html>

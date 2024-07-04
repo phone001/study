@@ -14,7 +14,7 @@ GET / HTTP1.1
 host : http://127.0.0.1:0000
 Upgrade : websocket
 Sec-WebSocket-Key : 해시 문자열
-Sex-WebSocket-Version : 버전
+Sec-WebSocket-Version : 버전
 
 Upgrade : websocket의 연결을 요청한다.
 Sec-WebSocket-Key : 클라이언트가 만든 고유 키

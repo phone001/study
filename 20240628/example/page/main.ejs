@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메인화면</title>
+</head>
+
+<body>
+    <ul>
+        <% if(data.length !==0)%>
+            <% data.forEach(el=>{%>
+                <li>
+                    <span>
+                        이름 : <%=el.name%>
+                            나이 : <%=el.age%>
+                                인사말 : <%=el.msg%>
+                                    <form action="/post_create" method="post">
+                                        <input type="text" name="content">
+                                        <input type="text" name="user_name" value="<%=el.name%>" hidden>
+                                        <button>글 등록</button>
+                                    </form>
+                    </span>
+                </li>
+
+                <%})%>
+                    <form action="/post_create" method="post">
+                        <input type="text" name="content">
+                        <input type="text" name="user_name">
+                        <button>글 등록</button>
+                    </form>
+    </ul>
+</body>
+
+</html>
