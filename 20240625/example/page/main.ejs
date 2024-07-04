@@ -12,28 +12,24 @@
     <script>
         let popupObj = null;
 
-
         const viewAdd = () => {
-            popupObj = new Popup();
+            popupObj = new Popup("create");
             popupObj.open();
             const submit = popupObj.popup.querySelector("#submitBtn");
-
             submit.onclick = createTodo;
-            todoImg.onchange = (e) => {
-                viewImg(e, insertImg)
-            }
+            viewImg()
         }
-        const viewImg = (e, img) => {
-            const file = new FileReader();
-            file.onload = (el) => {
-                img.src = el.target.result;
+        const viewImg = () => {
+            todoImg.onchange = (e) => {
+                const file = new FileReader();
+                file.onload = (el) => {
+                    insertImg.src = el.target.result;
+                }
+                file.readAsDataURL(e.target.files[0])
             }
-            file.readAsDataURL(e.target.files[0])
-
         }
         const createTodo = async () => {
             const { todo, todoImg, comDate } = popupObj.popup.querySelector("form");
-            console.log(comDate.value === "" ? new Date() : comDate.value)
             const data = { todo: todo.value, todoImg: todoImg.files[0], comDate: comDate.value === "" ? new Date() : comDate.value }
             const form = new FormData();
             form.append("todo", todo.value);
@@ -46,12 +42,37 @@
                 location.reload();
             }
         }
-        const updateTodo = (id) => {
-            axios.put("http://localhost:3000", { id });
+        const updateView = (id, todo, imgsrc, date) => {
+            console.log(id);
+            const data = { todo, date, imgsrc };
+            popupObj = new Popup("update", data);
+            popupObj.open();
+            submitBtn.onclick = () => { update(id, data) }
+            viewImg();
         }
-        const delTodo = (id) => {
-            axios.delete("http://localhost:3000", { id });
+        const update = async (id, data) => {
+            const { todo, todoImg, comDate } = popupObj.popup.querySelector("form");
+            const form = new FormData();
+            form.append("id", id);
+            data.todo != todo.value ? form.append("content", todo.value) : '';
+            todoImg.files[0] !== undefined ? form.append("img", todoImg.files[0]) : '';
+            todoImg.files[0] !== undefined ? form.append("todopreImg", data.imgsrc) : '';
+            data.date != comDate.value ? form.append("completeDate", comDate.value) : '';
+
+            const reponse = await axios.put("/update", form, {
+                "Content-Type": "multipart/form-data"
+            });
+            if (reponse.status === 200) {
+                localtion.reload();
+            }
         }
+
+        const delTodo = async (id, img) => {
+            console.log(id, img)
+            const data = { id: id, img: img }
+            await axios.delete("/delete", { data });
+        }
+
         const onComplete = function (e, strid) {
             const str = document.querySelector(`#${strid}`);
             if (e.checked) {
@@ -60,7 +81,26 @@
                 str.classList.remove("is-complete");
             }
         }
-
+        const saveComplete = async function () {
+            try {
+                const _inputs = document.querySelectorAll("input[type=checkbox]");
+                const dataArr = [];
+                _inputs.forEach(el => {
+                    dataArr.push(new test(el.id, el.checked));
+                })
+                const response = await axios.put("/completeChage", dataArr);
+                console.log(response);
+                if (response.status === 200) {
+                    location.reload();
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        }
+        function test(id, checked) {
+            this.id = id;
+            this.checked = checked;
+        }
 
     </script>
 
@@ -99,8 +139,9 @@
                             <% data.forEach((item,index)=>{%>
                                 <ul>
                                     <li class="todo-complete">
-                                        <input type="checkbox" onchange="onComplete(this,'content<%=index%>')"
-                                            <%=data.complete?checked:''%>>
+                                        <input type="checkbox" id="<%=item.id%>"
+                                            onchange="onComplete(this,'content<%=index%>')"
+                                            <%=item.complete?'checked':''%>>
                                     </li>
 
                                     <li class="todo-content-img">
@@ -116,8 +157,9 @@
                                         <%=item.completeDate%>
                                     </li>
                                     <li class="todo-btn">
-                                        <button onclick="updateTodo(<%=item.id%>)">수정</button>
-                                        <button onclick="delTodo(<%=item.id%>)">삭제</button>
+                                        <button
+                                            onclick="updateView(<%=item.id%>, '<%=item.content%>','<%=item.img%>','<%=item.completeDate%>')">수정</button>
+                                        <button onclick="delTodo(<%=item.id%>,'<%=item.img%>')">삭제</button>
                                     </li>
                                 </ul>
                                 <%})%>
@@ -125,7 +167,7 @@
                                     <%}%>
                 </div>
                 <div class="todo_tbn">
-                    <button>저장</button>
+                    <button onclick="saveComplete()">저장</button>
                     <button onclick="viewAdd()">추가</button>
                 </div>
             </div>

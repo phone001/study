@@ -1,6 +1,22 @@
 class Popup {
     popup = null;
-    constructor() {
+
+    constructor(type, data) {
+        if (type === "create") {
+            this.btnStr = "추가";
+            this.title = "할 일 추가하기";
+            this.todo = "";
+            this.completeDate = "";
+            this.imgSrc = "";
+        } else if (type === "update") {
+            const date = new Date(data.date);
+            console.log(data)
+            this.btnStr = "수정";
+            this.title = "할 일 변경하기";
+            this.todo = data.todo;
+            this.completeDate = data.date;
+            this.imgSrc = data.imgsrc;
+        }
         this.init();
     }
     init() {
@@ -30,6 +46,7 @@ class Popup {
 
         const _img = document.createElement("img");
         _img.id = "insertImg"
+        _img.src = this.imgSrc;
 
         _imgSpan.innerHTML = "이미지를 넣어주세요";
 
@@ -52,9 +69,12 @@ class Popup {
         _fileInput.type = "file";
         _dateInput.type = "date";
 
+        _todoInput.value = this.todo;
+        _dateInput.value = this.completeDate;
+
         _fileInput.style.display = "none";
 
-        _sumitBtn.innerHTML = "추가"
+        _sumitBtn.innerHTML = this.btnStr;
         _cancelBtn.innerHTML = "취소"
 
         _sumitBtn.type = "button";
@@ -64,7 +84,7 @@ class Popup {
         _sumitBtn.id = "submitBtn";
         _cancelBtn.id = "cancelBtn";
 
-        _h1.innerHTML = "할일 추가하기"
+        _h1.innerHTML = this.title;
 
         _imgLabel.append(_img);
         _titleDiv.append(_h1);
