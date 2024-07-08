@@ -1,0 +1,15 @@
+{
+  "include": [
+    "src/**/*"
+  ],
+  "compilerOptions": {
+    "target": "es6", /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+    "module": "commonjs", /* Specify what module code is generated. */
+    /* Type Checking */
+    "strict": true, /* 정확한 타입검사. */
+    "outDir": "./dist",
+    "experimentalDecorators": true, // 데코레이터 기능을 사용하겠다
+    "emitDecoratorMetadata": true, //데코래이터 사용 메타데이터 생성
+    "esModuleInterop": true // 라이브러리  esModule타입을 지정할지
+  }
+}
