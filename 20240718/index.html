@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>리액트 따라가기</title>
+</head>
+
+<body>
+    <div id="app"></div>
+</body>
+<script>
+    // 리액트는 선택자를 사용안하고 작성할 수 있는데
+    // 최초에 한번은 선택자를 사용
+    const root = document.querySelector("#app");
+    const _btn = document.createElement("button");
+    _btn.innerHTML = "버튼"
+    _btn.onclick = (e) => {
+        if (e.target.innerHTML !== 'logout') {
+            e.target.innerHTML = "logout";
+        } else {
+            e.target.innerHTML = "login"
+        }
+    }
+    root.append(_btn);
+</script>
+
+</html>

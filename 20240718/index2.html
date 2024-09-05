@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>리액트 컴포넌트</title>
+</head>
+
+<body>
+    <div id="root">
+
+    </div>
+
+</body>
+<script>
+    // 리액트 컴포넌트 를 잘만드록 싶으면 목적성을 자주 사용할 것 같은 ui를 분류해서 컴포넌트로 제작하면 좋다.
+    //하나의 돔을 내보낼 때 div같은 테그로 감싸 주어야 한다
+    // 컴포넌트 바닐라 js로 만들어보기
+    // class 컴포넌트, 함수형 컴포넌트
+    class Component {
+        target; // 전달할 값 props
+        state;  // 상태 초기값
+        constructor(target) {
+            this.target = target;
+            this.setup();
+        }
+        setup() {
+            // 컴포넌트를 초기 설정
+            console.log("컴포넌트 초기 세팅")
+        }
+
+        template() {
+            //컴포넌으 html템플릿을 반환
+            return "<div>난 타겟의 내용</div>";
+        }
+        render() {
+            // 컴포넌트의 타겟의 요소를 렌더링
+            console.log(this.target)
+            this.target.innerHTML = this.template();
+            this.setEvent();
+        }
+        setEvent() {
+            //컴포넌트의 요소에 이벤트 등록
+            console.log("컴포넌트 이벤트");
+            // 상태변수 전환은
+            this.state = { id: 1 }// 절대 재할당 x
+            // 함수를 호출해서 값을 할당해줘야한다.
+            // 상태가 변환되면 다시 그린다.
+        }
+        // 상태 업데이트 
+        setState(state) {
+            // setState함수를 호출해서만 값을 변경
+            this.state = { ...this.state, ...state };
+            // 리액트는 상태가 전환되면 반응한다. 
+            // 렌더링 현재 컴포넌트를 다시 리렌더링한다.
+            this.render();
+            console.log("나 상태가 업데이트 됐어");
+            // 리렌더링 중요***
+            // 리렌더링이 되지 않으면 화면이 바뀌지 않는다.
+        }
+
+    }
+    // 가상돔
+    // 상태가 변환된 컴포넌트를 찾아서 리렌더링
+    class VirtualDOM {
+        constructor(target) {
+            // 가상돔의 target은 root
+            this.component = new App(target);
+
+        }
+        render() {
+            // 컴포넌트 렌더링
+            this.component.render();
+        }
+
+    }
+
+    // 컴포넌트 클래스를 상속받음
+    // App은 컴포넌트
+    class App extends Component {
+        setup() {
+            // 초기 세팅 상태값
+            this.state = { item: ["id:01", "pw:123"] }
+            // 초기 세팅 렌더링
+            //this.component.render();
+        }
+        template() {
+            // html을 완성해서 반환
+            const { item } = this.state;
+            return `
+                <ul>
+                    ${item.map(i =>
+                `<li>${i}</li>`
+            )}
+                </ul>
+                <button>추가</button>
+            `
+        }
+        setEvent() {
+            console.log(this.target);
+            this.target.querySelector("button").addEventListener("click", () => {
+                // 변경되기 전 상태 값을 가져오고
+                // id : 01, pw : 123
+                const { item } = this.state;
+                // 벝느을 누를 때마다 값이 상태갑싱 변경
+                // 상태 값을 변경하고 싶을 때는 setState 함수를 통해서만 변경해라
+
+                this.setState({ item: [...item, `추가된 아이템 ${item.length + 1}`] })
+                console.log(this.state);
+            })
+        }
+    }
+
+    const root = new VirtualDOM(document.querySelector("#root"));
+    root.render();
+</script>
+
+</html>

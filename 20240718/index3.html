@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>리액트 라이브러리</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- 
+        es6 -> es5 트랜스파일 ===babel
+    -->
+</head>
+
+<body>
+    <div id="root"></div>
+</body>
+<!-- 스크립트의 내용을 바벨로 트랜스파일 하겠다. -->
+<script type="text/babel">
+    // 컴포넌트로 생성할 클래스에 상속
+    class LoginBtn extends React.Component {
+        constructor(props) {
+            // 부모생성자 호출
+            super(props);
+            // 이렇게 해야 생성자 안에서 변수 내용을 사용할 수 잇음
+            // state키 값을 정해진 이름으로 사용해야한다.
+            // 컴포넌트의 상태값(바뀌면 리렌더링 된다.)
+            this.state = {
+                isLogin: false
+            }
+        }
+        // jsx문법에서 html영역에서 중괄호를 사용하면 자바스크립트를 실행하겠다
+        // 이벤트에 실행식을 넣으면 반환값이 할당되고 한번 호출됨
+        // 함수의 값을 넣어야 이벤트가 발생할 때마다 호출된다
+        // setState상태를 전환할 때 꼭 이 메서드로 변경해야한다
+        render() {
+            let a = 1;
+            return (
+                <div>
+                    <div>
+                        <button onClick={() => { this.setState({ isLogin: !this.state.isLogin }) }}>{this.state.isLogin ? "LogOut" : "Login"}</button>
+                    </div>
+                    이건 일반 변수 :{a}
+                    <button onClick={() => { a++; }}>증가 </button>
+                </div>
+            )
+        }
+    }
+    const root = ReactDOM.createRoot(document.querySelector("#root"));
+    root.render(
+        <LoginBtn />
+    );
+</script>
+
+</html>
